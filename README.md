@@ -18,7 +18,7 @@ nitro-cli run-enclave --cpu-count 2 --memory 2048 --eif-path galadriel.eif
 nitro-cli describe-enclaves # Optional: see the enclave information and CID
 ```
 
-Enclave data
+Enclave data example:
 ```json
 {
   "Measurements": {
@@ -38,7 +38,7 @@ pip install -r requirements.txt
 pip install --upgrade pyOpenSSL
 
 # execute on the enclave Host VM
-python3 client.py --cid 23 --action get_attestation_doc
+python3 client.py --cid <enclave cid> --action get_attestation_doc
 
 # execute anywhere if you have the attestation doc b64
 # this script verifies the enclave's attestation doc to AWS root certificate
@@ -46,13 +46,10 @@ python3 client.py --cid 23 --action get_attestation_doc
 python verify.py <pcr0 of the enclave> 
 
 # execute on the enclave Host VM - sign any message
-python client.py --cid 23 --action sign_message --message "hello"
+python client.py --cid <enclave cid> --action sign_message --message "hello"
 # execute anywhere if you have the public key of the enclave
 python verify_signature.py --message "hello" --signature <signature>
 ```
-
-
-
 
 ### Deterministic enclave image building
 
