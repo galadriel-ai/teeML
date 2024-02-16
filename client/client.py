@@ -58,7 +58,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Enclave client.")
     parser.add_argument(
         "--cid",
-        type=str,
+        type=int,
         required=True,
         help="an EnclaveCID to connect to"
     )
