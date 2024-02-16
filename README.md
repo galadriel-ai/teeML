@@ -6,6 +6,11 @@
 * the libnsm is rust shared object with python wrapper around it
 
 ```shell
+# Optional: stop the enclave
+ENCLAVE_ID=$(nitro-cli describe-enclaves | jq -r ".[0].EnclaveID")
+[ "$ENCLAVE_ID" != "null" ] && nitro-cli terminate-enclave --enclave-id ${ENCLAVE_ID}
+nitro-cli describe-enclaves # Optional: see if any enclaves are running
+
 cd enclave
 docker build ./ -t "galadriel"
 nitro-cli build-enclave --docker-uri "galadriel:latest" --output-file "galadriel.eif"
