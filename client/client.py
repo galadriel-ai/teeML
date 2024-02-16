@@ -2,6 +2,13 @@ import sys
 import socket
 import json
 
+ATTESTATION_OUTPUT = "attestation_doc_b64.txt"
+
+
+def save_attestation_b64(attestation_b64):
+    with open(ATTESTATION_OUTPUT, "w", encoding="utf-8") as file:
+        file.write(attestation_b64)
+
 
 def main():
     # Create a vsock socket object
@@ -23,7 +30,9 @@ def main():
 
     # receive the plaintext from the server and print it to console
     response = s.recv(65536)
-    print(response.decode())
+    attestation_b64 = response.decode()
+    attestation_b64_dict = json.loads(attestation_b64)
+    save_attestation_b64(attestation_b64_dict["attestation_doc_b64"])
 
     # close the connection
     s.close()
