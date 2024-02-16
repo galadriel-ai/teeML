@@ -45,8 +45,9 @@ python3 client.py --cid 23 --action get_attestation_doc
 # also prints out the public key of the enclave and saves to file
 python verify.py <pcr0 of the enclave> 
 
-# sign a message and verify the signature
+# execute on the enclave Host VM - sign any message
 python client.py --cid 23 --action sign_message --message "hello"
+# execute anywhere if you have the public key of the enclave
 python verify_signature.py --message "hello" --signature <signature>
 ```
 
