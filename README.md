@@ -1,5 +1,13 @@
 # AWS Enclave
 
+Prerequirements:
+* setup aws nitro enclave supported VM
+* do bunch of more stuff...
+  * https://catalog.workshops.aws/nitro-enclaves/en-US/0-getting-started/prerequisites
+  * https://catalog.workshops.aws/nitro-enclaves/en-US/1-my-first-enclave/1-1-nitro-enclaves-cli
+  * https://www.notion.so/nftport/TEE-b4069289b4bd49ae810010eceaece2d6
+  * https://docs.aws.amazon.com/enclaves/latest/user/verify-root.html
+
 ### Create and run an AWS Nitro Enclave
 
 * enclave comes with `lbnsm.so` and python is calling it over C binding
