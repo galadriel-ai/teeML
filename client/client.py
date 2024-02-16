@@ -34,6 +34,7 @@ def _action_sign_message(s, message):
     })))
     # receive the plaintext from the server and print it to console
     response = s.recv(65536)
+    print("response:", response)
     signature_b64 = response.decode()
     print("signature_b64:", signature_b64)
 
@@ -66,7 +67,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--action',
         type=str,
-        default="get_attestation_doc",
+        default=ACTION_GET_ATTESTATION,
         choices=[ACTION_GET_ATTESTATION, ACTION_SIGN_MESSAGE],
         help="action to run"
     )

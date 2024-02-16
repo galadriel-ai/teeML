@@ -48,12 +48,17 @@ def main():
             # Send the request to secretstore
             client_connection.send(str.encode(attestation_doc_request))
         elif request["action"] == "sign_message":
-            message = request["message"]
-            signed_message = nsm_util.sign_message(message)
-            request = json.dumps({
-                "signed_message": signed_message
-            })
-            client_connection.send(str.encode(request))
+            try:
+                message = request["message"]
+                signed_message = nsm_util.sign_message(message)
+                request = json.dumps({
+                    "signed_message": signed_message
+                })
+                client_connection.send(str.encode(request))
+            except Exception as exc:
+                client_connection.send(str.encode(json.dumps({
+                    "exception": str(exc)
+                })))
         else:
             client_connection.send(str.encode(json.dumps({
                 "error": "unknown action: " + request["action"]
