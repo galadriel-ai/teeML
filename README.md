@@ -38,10 +38,16 @@ pip install -r requirements.txt
 pip install --upgrade pyOpenSSL
 
 # execute on the enclave Host VM
-python client.py <enclave_cid>
+python3 client.py --cid 23 --action get_attestation_doc
 
 # execute anywhere if you have the attestation doc b64
+# this script verifies the enclave's attestation doc to AWS root certificate
+# also prints out the public key of the enclave and saves to file
 python verify.py <pcr0 of the enclave> 
+
+# sign a message and verify the signature
+python client.py --cid 23 --action sign_message --message "hello"
+python verify_signature.py --message "hello" --signature <signature>
 ```
 
 

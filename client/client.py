@@ -34,7 +34,6 @@ def _action_sign_message(s, message):
     })))
     # receive the plaintext from the server and print it to console
     response = s.recv(65536)
-    print("response:", response)
     signature_b64 = response.decode()
     print("signature_b64:", signature_b64)
 

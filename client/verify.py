@@ -16,6 +16,11 @@ def get_root_pem():
         return file.read()
 
 
+def save_public_key(public_key_pem):
+    with open("enclave_public_key.pem", "w") as file_out:
+        file_out.write(public_key_pem)
+
+
 def main(pcr0: str):
     root_cert_pem = get_root_pem()
 
@@ -36,6 +41,8 @@ def main(pcr0: str):
     public_key = attestation_verifier.get_public_key(attestation_doc)
     decode_public_key = attestation_verifier.decode_public_key(public_key)
     print("\ndecode_public_key:", decode_public_key)
+    save_public_key(decode_public_key)
+    print("\npublic key saved to enclave_public_key.pem")
 
 
 if __name__ == '__main__':
