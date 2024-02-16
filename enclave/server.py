@@ -33,7 +33,7 @@ def main():
         payload = client_connection.recv(4096)
         request = json.loads(payload.decode())
 
-        if request['action'] == 'get_attestation_doc':
+        if request["action"] == "get_attestation_doc":
             # Generate attestation document
             attestation_doc = nsm_util.get_attestation_doc()
 
@@ -47,6 +47,13 @@ def main():
 
             # Send the request to secretstore
             client_connection.send(str.encode(attestation_doc_request))
+        elif request["action"] == "sign_message":
+            message = request["message"]
+            signed_message = nsm_util.sign_message(message)
+            request = json.dumps({
+                "signed_message": signed_message
+            })
+            client_connection.send(str.encode(request))
         else:
             client_connection.send(str.encode(json.dumps({
                 "error": "unknown action: " + request["action"]

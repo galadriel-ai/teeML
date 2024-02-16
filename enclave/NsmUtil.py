@@ -7,8 +7,11 @@ import base64
 import Crypto
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
+from Crypto.Signature import pkcs1_15
+from Crypto.Hash import SHA256
 
 import libnsm
+
 
 class NSMUtil():
     """NSM util class."""
@@ -16,10 +19,11 @@ class NSMUtil():
     def __init__(self):
         """Construct a new NSMUtil instance."""
         # Initialize the Rust NSM Library
-        self._nsm_fd = libnsm.nsm_lib_init() # pylint:disable=c-extension-no-member
+        self._nsm_fd = libnsm.nsm_lib_init()  # pylint:disable=c-extension-no-member
         # Create a new random function `nsm_rand_func`, which
         # utilizes the NSM module.
-        self.nsm_rand_func = lambda num_bytes : libnsm.nsm_get_random( # pylint:disable=c-extension-no-member
+        self.nsm_rand_func = lambda num_bytes: libnsm.nsm_get_random(
+            # pylint:disable=c-extension-no-member
             self._nsm_fd, num_bytes
         )
 
@@ -36,13 +40,14 @@ class NSMUtil():
 
     def get_attestation_doc(self):
         """Get the attestation document from /dev/nsm."""
-        libnsm_att_doc_cose_signed = libnsm.nsm_get_attestation_doc( # pylint:disable=c-extension-no-member
+        libnsm_att_doc_cose_signed = libnsm.nsm_get_attestation_doc(
+            # pylint:disable=c-extension-no-member
             self._nsm_fd,
             self._public_key,
             len(self._public_key)
         )
         return libnsm_att_doc_cose_signed
-    
+
     def decrypt(self, ciphertext):
         """
         Decrypt ciphertext using private key
@@ -52,10 +57,21 @@ class NSMUtil():
 
         return plaintext.decode()
 
+    def sign_message(self, message: str):
+        message = str.encode(message)
+        hash_obj = SHA256.new(message)
+        signature = pkcs1_15.new(self._rsa_key).sign(hash_obj)
+        signature_b64 = base64.b64encode(signature).decode()
+        return signature_b64
+
     @classmethod
     def _monkey_patch_crypto(cls, nsm_rand_func):
         """Monkeypatch Crypto to use the NSM rand function."""
         Crypto.Random.get_random_bytes = nsm_rand_func
-        def new_random_read(self, n_bytes): # pylint:disable=unused-argument
+
+        # pylint:disable=unused-argument
+        def new_random_read(self, n_bytes):
             return nsm_rand_func(n_bytes)
-        Crypto.Random._UrandomRNG.read = new_random_read # pylint:disable=protected-access
+
+        # pylint:disable=protected-access
+        Crypto.Random._UrandomRNG.read = new_random_read
