@@ -3,6 +3,7 @@
 ### Create and run an AWS Nitro Enclave
 
 * enclave comes with `lbnsm.so` and python is calling it over C binding
+* the libnsm is rust shared object with python wrapper around it
 
 ```shell
 cd enclave
