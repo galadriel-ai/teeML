@@ -24,6 +24,7 @@ def _action_get_attestation(s):
     attestation_b64 = response.decode()
     attestation_b64_dict = json.loads(attestation_b64)
     save_attestation_b64(attestation_b64_dict["attestation_doc_b64"])
+    print("saved attestation doc to:", ATTESTATION_OUTPUT)
 
 
 def _action_sign_message(s, message):
