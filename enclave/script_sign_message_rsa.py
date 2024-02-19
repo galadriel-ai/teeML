@@ -6,6 +6,8 @@ import base64
 
 # Load or generate your RSA private key
 private_key = RSA.generate(2048)
+private_key_der = private_key.export_key(format='DER')
+print("Private Key:", private_key_der.hex())
 
 # Your message to sign
 message = str.encode("Hello world")
@@ -14,7 +16,7 @@ hash_obj = SHA256.new(message)
 # Sign the message
 signature = pkcs1_15.new(private_key).sign(hash_obj)
 signature_b64 = base64.b64encode(signature).decode()
-print("signature_b64:", signature_b64)
+print("\nsignature_b64:", signature_b64)
 
 # Export the private key to PEM format
 private_key_pem = private_key.export_key()

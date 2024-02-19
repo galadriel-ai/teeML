@@ -1,0 +1,8 @@
+[package]
+name = "secpk256k1"
+
+[dependencies]
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "7b0b57c8777aa62bcc37fd2fdc33a18066f14273" }
+
+[addresses]
+secpk256k1 = "0x0"

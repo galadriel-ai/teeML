@@ -63,3 +63,52 @@ python verify_signature.py --message "hello" --signature <signature>
 
 1. Need deterministic docker build? How?
 2. Given the same docker image is the enclave always the same?
+
+
+### Crypto references
+
+Python examples on how to create keys, create signature and validate.
+
+RSA:
+```shell
+python script_sign_message_rsa.py
+```
+
+secp256k1:
+```shell
+python script_sign_message_secp256k1.py
+```
+
+Running on SUI Move:
+
+Download some version of sui-mainnet binary from github releases, for example v1.17.3.
+
+Run the localnet:
+```shell
+./sui-mainnet-v1.17.3-macos-arm64/target/release/sui-test-validator-macos-arm64
+```
+
+Another window:
+```shell
+# get funds to deploy and send tx
+sui client active-address
+curl --location --request POST 'http://127.0.0.1:9123/gas' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "FixedAmountRequest": {
+        "recipient": "0x5a1c3cc19acfd04538fd7ae83195eb394d1836e4e3c085ce7b5cae9a74908dbc"
+    }
+}'
+
+# deploy contract and call
+cd sui/secpk256k1
+sui move build
+sui client publish --gas-budget 100000000
+
+sui client call \
+  --package 0xc73a40c7720cd9abc6ba1aad37c3082ed8da49a02b0be5c47a360486711c2dc4 \
+  --module secpk256k1 \
+  --function validateSignature \
+  --gas-budget 100000000 \
+  --args "0xabcdef00" "0x027f5fc5283d80756a59b00ab26d2ea914f5d3d35deae839af8806e8f042dd0668" "0x27cf3f13902cdab041b7d16ca0f2eefd7f04a8fc6cb4e971fe753b6e494ea7cb05a4bedda8341dd5550c197c41af1d39b90075972fb39c15a8707aef1f09f2bf"
+```
