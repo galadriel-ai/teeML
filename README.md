@@ -106,9 +106,9 @@ sui move build
 sui client publish --gas-budget 100000000
 
 sui client call \
-  --package 0x71373ccb689611bb93a1cae4d21e5652482fe8b5ef62c225912f2e4ef999bf12 \
+  --package 0x23a64559e81f02cdda12216d5849f648b23ae89c24b8e37f9fe5bd303fee9e3e \
   --module secpk256k1 \
   --function validateSignature \
   --gas-budget 100000000 \
-  --args "0xabcdef00" "0x027f5fc5283d80756a59b00ab26d2ea914f5d3d35deae839af8806e8f042dd0668" "0x27cf3f13902cdab041b7d16ca0f2eefd7f04a8fc6cb4e971fe753b6e494ea7cb05a4bedda8341dd5550c197c41af1d39b90075972fb39c15a8707aef1f09f2bf"
+  --args "0xabcdef00" 0xd3eae32a81e92ba335ef48bbcff83f15c312f6bb0dffca139775d53c2103d12a "0x27cf3f13902cdab041b7d16ca0f2eefd7f04a8fc6cb4e971fe753b6e494ea7cb05a4bedda8341dd5550c197c41af1d39b90075972fb39c15a8707aef1f09f2bf"
 ```

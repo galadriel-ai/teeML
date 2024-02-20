@@ -1,10 +1,9 @@
 [package]
-name = "secpk256k1"
+name = "oracle"
+published-at = "0xc5d6cc4d054f150362a4be1d2e50d8e6df9ed55b73f6767e702414826fdc60dc"
 
 [dependencies]
 Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "7b0b57c8777aa62bcc37fd2fdc33a18066f14273" }
-oracle = { local = "../oracle" }
 
 [addresses]
-secpk256k1 = "0x0"
 oracle = "0xc5d6cc4d054f150362a4be1d2e50d8e6df9ed55b73f6767e702414826fdc60dc"
