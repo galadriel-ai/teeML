@@ -22,7 +22,7 @@ def get_alias_info() -> Optional[AliasInfo]:
     for alias in sui_config.aliases:
         return AliasInfo(
             alias=alias,
-            address=sui_config.addr4al(alias),
+            address=str(sui_config.addr4al(alias)),
             public_key=sui_config.pk4al(alias)
         )
 
