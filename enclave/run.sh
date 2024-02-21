@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # Start the server
-python3 /app/server.py
+python3.10 /app/server.py

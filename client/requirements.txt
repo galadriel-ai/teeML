@@ -4,3 +4,4 @@ cryptography==41.0.4
 pycryptodome==3.9.9
 # Actually need the 24.0.0 but the installation fails and need to upgrade after wards
 pyOpenSSL==19.1.0
+pysui @ git+https://github.com/FrankC01/pysui.git@95c5736d5a5c4e213ea2ad49dbce81659b8d4a71

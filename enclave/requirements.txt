@@ -1,1 +1,2 @@
 pycryptodome==3.9.9
+pysui @ git+https://github.com/FrankC01/pysui.git@95c5736d5a5c4e213ea2ad49dbce81659b8d4a71
