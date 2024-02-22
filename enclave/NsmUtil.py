@@ -63,6 +63,7 @@ class NSMUtil():
         # self._public_key = self._rsa_key.publickey().export_key('DER')
         self._alias_info = get_alias_info()
         self._public_key = self._alias_info.address
+        print("Got public key:", self._public_key)
 
     def get_attestation_doc(self):
         """Get the attestation document from /dev/nsm."""

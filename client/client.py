@@ -5,6 +5,7 @@ import argparse
 
 ATTESTATION_OUTPUT = "attestation_doc_b64.txt"
 
+ACTION_PING = "ping"
 ACTION_GET_ATTESTATION = "get_attestation_doc"
 ACTION_SIGN_MESSAGE = "sign_message"
 
@@ -12,6 +13,15 @@ ACTION_SIGN_MESSAGE = "sign_message"
 def save_attestation_b64(attestation_b64):
     with open(ATTESTATION_OUTPUT, "w", encoding="utf-8") as file:
         file.write(attestation_b64)
+
+
+def _action_ping(s):
+    s.send(str.encode(json.dumps({
+        "action": ACTION_PING
+    })))
+    response = s.recv(65536)
+    response_decoded = response.decode()
+    print("response_decoded:", response_decoded)
 
 
 def _action_get_attestation(s):
@@ -46,7 +56,9 @@ def main(cid: str, action: str, message: str = None):
     # Connect to the server
     s.connect((cid, port))
 
-    if action == ACTION_GET_ATTESTATION:
+    if action == ACTION_PING:
+        _action_ping(s)
+    elif action == ACTION_GET_ATTESTATION:
         _action_get_attestation(s)
     elif action == ACTION_SIGN_MESSAGE:
         _action_sign_message(s, message)
