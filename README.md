@@ -14,6 +14,18 @@ Prerequirements:
 * the libnsm is rust shared object with python wrapper around it
 
 ```shell
+sudo systemctl stop nitro-enclaves-allocator.service
+vi /etc/nitro_enclaves/allocator.yaml
+sudo systemctl start nitro-enclaves-allocator.service && sudo systemctl enable nitro-enclaves-allocator.service
+
+# Setup vsock proxy to connect to SUI fullnode
+sudo systemctl stop nitro-enclaves-vsock-proxy.service
+# sudo echo "- {address: https://fullnode.devnet.sui.io, port: 443}" >> /etc/nitro_enclaves/vsock-proxy.yaml
+vsock-proxy 8001 fullnode.devnet.sui.io 443 --config sui_vsock_proxy.yaml
+sudo systemctl start nitro-enclaves-vsock-proxy.service
+```
+
+```shell
 # Optional: stop the enclave
 ENCLAVE_ID=$(nitro-cli describe-enclaves | jq -r ".[0].EnclaveID")
 [ "$ENCLAVE_ID" != "null" ] && nitro-cli terminate-enclave --enclave-id ${ENCLAVE_ID}
@@ -22,9 +34,13 @@ nitro-cli describe-enclaves # Optional: see if any enclaves are running
 cd enclave
 docker build ./ -t "galadriel"
 nitro-cli build-enclave --docker-uri "galadriel:latest" --output-file "galadriel.eif"
-nitro-cli run-enclave --cpu-count 2 --memory 2048 --eif-path galadriel.eif
+nitro-cli run-enclave --cpu-count 2 --memory 15000 --eif-path galadriel.eif
 nitro-cli describe-enclaves # Optional: see the enclave information and CID
+nitro-cli console --enclave-id <enclave cid> # Optional: if running in debug mode
 ```
+[ E26 ] Insufficient memory requested. User provided `memory` is 2048 MB, but based on the EIF file size, the minimum memory should be 12536 MB
+
+
 
 Enclave data example:
 ```json
@@ -110,5 +126,37 @@ sui client call \
   --module secpk256k1 \
   --function validateSignature \
   --gas-budget 100000000 \
-  --args "0xabcdef00" 0xd3eae32a81e92ba335ef48bbcff83f15c312f6bb0dffca139775d53c2103d12a "0x27cf3f13902cdab041b7d16ca0f2eefd7f04a8fc6cb4e971fe753b6e494ea7cb05a4bedda8341dd5550c197c41af1d39b90075972fb39c15a8707aef1f09f2bf"
+  --args "0xabcdef00" 0x9eb035a86cdbe0a0a04b9c39bcf71e835af1a4f0c6bb26b611f31bccc02d8feb "0x27cf3f13902cdab041b7d16ca0f2eefd7f04a8fc6cb4e971fe753b6e494ea7cb05a4bedda8341dd5550c197c41af1d39b90075972fb39c15a8707aef1f09f2bf"
+  
+  
+Package ID: 0x192a913ca8e84ff9a6bd2f3b038a5460240c73aa037859630606147ddec14f20
+KeyStorage ID: 0x9eb035a86cdbe0a0a04b9c39bcf71e835af1a4f0c6bb26b611f31bccc02d8feb
+```
+
+
+# Attestation
+
+0. we deploy oracle contract
+
+1. Open source oracle codebase
+2. When oracle starts, 
+   * it will generate a keypair and store the private key in the enclave
+   * we ask the public key and fund the account and give write access to oracle contract
+   * oracle polls until it has funds
+   * once funds arrive, it will generate attestation and push attestation and public key to the chain in the oracle
+
+3. Agent dev
+   * off chain read the oracle public key from the chain 
+   * create AgentRun with that public key
+
+# Admin
+
+* get public address of the enclave
+* send SUI:
+```shell
+sui client transfer-sui \
+  --to 0x67ddc499ac49ea7fe6310bb3937083a323da8cd1f172664a68dab597671068af \
+  --gas-budget 50000000000 \
+  --amount 50000000000 \
+  --sui-coin-object-id 0x597e3ad88ee80c1ad0285f03076ff648af074e6661257bd21f9f35fae4a8eaa5
 ```
