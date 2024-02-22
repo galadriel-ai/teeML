@@ -11,33 +11,9 @@ from Crypto.Cipher import PKCS1_OAEP
 from Crypto.Signature import pkcs1_15
 from Crypto.Hash import SHA256
 
-from pysui import SuiConfig
-from pysui import SyncClient
-from pysui.abstracts import PublicKey
-
 print("importing libnsm")
 import libnsm
 
-print("initialising sui config")
-#sui_config = SuiConfig.default_config()
-print("initialising sui client")
-#sui_client = SyncClient(sui_config)
-
-
-@dataclass(frozen=True)
-class AliasInfo:
-    alias: str
-    address: str
-    public_key: PublicKey
-
-
-def get_alias_info() -> Optional[AliasInfo]:
-    for alias in sui_config.aliases:
-        return AliasInfo(
-            alias=alias,
-            address=str(sui_config.addr4al(alias)),
-            public_key=sui_config.pk4al(alias)
-        )
 
 
 class NSMUtil():
@@ -64,7 +40,7 @@ class NSMUtil():
         # for KMS Decrypt calls with this document.
         # self._rsa_key = RSA.generate(2048)
         # self._public_key = self._rsa_key.publickey().export_key('DER')
-        self._alias_info = get_alias_info()
+        # self._alias_info = get_alias_info()
         #self._public_key = self._alias_info.address
         #print("Got public key:", self._public_key)
 
