@@ -19,7 +19,7 @@ ALIAS_NAME = "ae"
 
 import urllib.request
 # The URL you want to send a GET request to
-url = "https://faucet.devnet.sui.io/gas"
+url = "https://fullnode.devnet.sui.io"
 # Use urllib to open the URL and read the response
 with urllib.request.urlopen(url) as response:
     # The response object
