@@ -40,4 +40,4 @@ COPY sui_debug.py ./
 
 RUN chmod +x run.sh
 
-#CMD ["/app/run.sh"]
+CMD ["/app/run.sh"]
