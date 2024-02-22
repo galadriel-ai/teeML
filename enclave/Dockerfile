@@ -27,9 +27,6 @@ RUN tar -xf sui-mainnet-v1.17.3-ubuntu-x86_64.tgz
 RUN rm sui-mainnet-v1.17.3-ubuntu-x86_64.tgz
 RUN cp target/release/sui-ubuntu-x86_64 /usr/bin/sui
 RUN rm -rf target
-# Initializes the SUI client with default settings
-# TODO: do we actually need to do this at runtime?
-RUN echo -e "y\n\n1" | sui client
 
 RUN yum install iproute -y
 
