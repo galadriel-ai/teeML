@@ -6,6 +6,13 @@ from pysui import SyncClient
 from pysui.abstracts import PublicKey
 
 sui_config = SuiConfig.default_config()
+print("sui_config:", sui_config)
+print("rpc_url:", sui_config.rpc_url)
+print("local_config:", sui_config.local_config)
+print("faucet_url:", sui_config.faucet_url)
+print("socket_url:", sui_config.socket_url)
+print("active_address:", sui_config.active_address)
+print("environment:", sui_config.environment)
 sui_client = SyncClient(sui_config)
 
 ALIAS_NAME = "ae"
