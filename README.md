@@ -38,9 +38,6 @@ nitro-cli run-enclave --cpu-count 2 --memory 15000 --eif-path galadriel.eif
 nitro-cli describe-enclaves # Optional: see the enclave information and CID
 nitro-cli console --enclave-id <enclave cid> # Optional: if running in debug mode
 ```
-[ E26 ] Insufficient memory requested. User provided `memory` is 2048 MB, but based on the EIF file size, the minimum memory should be 12536 MB
-
-
 
 Enclave data example:
 ```json

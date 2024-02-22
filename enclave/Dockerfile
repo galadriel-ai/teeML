@@ -31,6 +31,8 @@ RUN rm -rf target
 # TODO: do we actually need to do this at runtime?
 RUN echo -e "y\n\n1" | sui client
 
+RUN yum install iproute -y
+
 COPY server.py ./
 COPY NsmUtil.py ./
 COPY run.sh ./
