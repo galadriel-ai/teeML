@@ -3,8 +3,6 @@ This file is modified based on donkersgoed's repository (https://github.com/donk
 """
 
 import base64
-from dataclasses import dataclass
-from typing import Optional
 
 import Crypto
 from Crypto.Cipher import PKCS1_OAEP
@@ -13,7 +11,6 @@ from Crypto.Hash import SHA256
 
 from pysui import SuiConfig
 from pysui import SyncClient
-from pysui.abstracts import PublicKey
 
 print("importing libnsm")
 import libnsm
@@ -25,6 +22,19 @@ try:
     sui_client = SyncClient(sui_config)
 except Exception as exc:
     print("Sui exception:", exc)
+
+import urllib.request
+
+# The URL you want to send a GET request to
+url = "https://faucet.devnet.sui.io/gas"
+# Use urllib to open the URL and read the response
+with urllib.request.urlopen(url) as response:
+    # The response object
+    print("result:", response)
+    # To read the content of the response
+    response_text = response.read().decode('utf-8')
+    print("result.text:", response_text)
+
 
 class NSMUtil():
     """NSM util class."""
@@ -51,8 +61,8 @@ class NSMUtil():
         # self._rsa_key = RSA.generate(2048)
         # self._public_key = self._rsa_key.publickey().export_key('DER')
         # self._alias_info = get_alias_info()
-        #self._public_key = self._alias_info.address
-        #print("Got public key:", self._public_key)
+        # self._public_key = self._alias_info.address
+        # print("Got public key:", self._public_key)
 
     def get_attestation_doc(self):
         """Get the attestation document from /dev/nsm."""
