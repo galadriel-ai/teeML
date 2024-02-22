@@ -32,6 +32,7 @@ def _action_get_attestation(s):
     # receive the plaintext from the server and print it to console
     response = s.recv(65536)
     attestation_b64 = response.decode()
+    print("attestation_b64:", attestation_b64)
     attestation_b64_dict = json.loads(attestation_b64)
     save_attestation_b64(attestation_b64_dict["attestation_doc_b64"])
     print("saved attestation doc to:", ATTESTATION_OUTPUT)
@@ -51,6 +52,7 @@ def _action_sign_message(s, message):
 def main(cid: str, action: str, message: str = None):
     # Create a vsock socket object
     s = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
+    s.settimeout(100.0)
     # The port should match the server running in enclave
     port = 5000
     # Connect to the server

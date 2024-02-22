@@ -16,9 +16,9 @@ def get_root_pem():
         return file.read()
 
 
-def save_public_key(public_key_pem):
-    with open("enclave_public_key.pem", "w") as file_out:
-        file_out.write(public_key_pem)
+def save_public_key(public_key):
+    with open("enclave_public_key.txt", "w") as file_out:
+        file_out.write(public_key)
 
 
 def main(pcr0: str):
@@ -38,11 +38,12 @@ def main(pcr0: str):
         # Send error response back to enclave
         print("Attestation verification failed!")
 
-    public_key = attestation_verifier.get_public_key(attestation_doc)
-    decode_public_key = attestation_verifier.decode_public_key(public_key)
-    print("\ndecode_public_key:", decode_public_key)
-    save_public_key(decode_public_key)
-    print("\npublic key saved to enclave_public_key.pem")
+    b_public_key = attestation_verifier.get_public_key(attestation_doc)
+    print("\nbinary public_key:", b_public_key)
+    public_key = "0x" + b_public_key.hex()
+    print("public_key:", public_key)
+    save_public_key(public_key)
+    print("\npublic key saved to enclave_public_key.txt")
 
 
 if __name__ == '__main__':

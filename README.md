@@ -67,10 +67,8 @@ python3 client.py --cid <enclave cid> --action get_attestation_doc
 # also prints out the public key of the enclave and saves to file
 python verify.py <pcr0 of the enclave> 
 
-# execute on the enclave Host VM - sign any message
-python client.py --cid <enclave cid> --action sign_message --message "hello"
-# execute anywhere if you have the public key of the enclave
-python verify_signature.py --message "hello" --signature <signature>
+# once attestation verified and public key saved
+python sui_publish_attestation.py
 ```
 
 ### Deterministic enclave image building
