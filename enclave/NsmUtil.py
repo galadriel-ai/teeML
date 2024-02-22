@@ -40,7 +40,9 @@ try:
                 builder_rpc_api.params,
             ),
         )
-        print("\nrpc_api_result:", rpc_api_result, "\n")
+        print("\nrpc_api_result:", rpc_api_result)
+        print("rpc_api_result.content", rpc_api_result.content)
+        print("")
 except Exception as exc:
     print("Exception:", exc)
 
