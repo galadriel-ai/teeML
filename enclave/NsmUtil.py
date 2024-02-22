@@ -19,9 +19,9 @@ print("importing libnsm")
 import libnsm
 
 print("initialising sui config")
-sui_config = SuiConfig.default_config()
+#sui_config = SuiConfig.default_config()
 print("initialising sui client")
-sui_client = SyncClient(sui_config)
+#sui_client = SyncClient(sui_config)
 
 
 @dataclass(frozen=True)
@@ -65,8 +65,8 @@ class NSMUtil():
         # self._rsa_key = RSA.generate(2048)
         # self._public_key = self._rsa_key.publickey().export_key('DER')
         self._alias_info = get_alias_info()
-        self._public_key = self._alias_info.address
-        print("Got public key:", self._public_key)
+        #self._public_key = self._alias_info.address
+        #print("Got public key:", self._public_key)
 
     def get_attestation_doc(self):
         """Get the attestation document from /dev/nsm."""
