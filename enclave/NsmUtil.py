@@ -15,6 +15,35 @@ from pysui import SyncClient
 print("importing libnsm")
 import libnsm
 
+
+def _generate_data_block(data_block: dict, method: str, params: list) -> dict:
+    """Build the json data block for Rpc."""
+    data_block["method"] = method
+    data_block["params"] = params
+    return data_block
+
+
+try:
+    import httpx
+    from pysui.sui.sui_builders.get_builders import (
+        GetRpcAPI,
+    )
+
+    builder_rpc_api = GetRpcAPI()
+    with httpx.Client(http2=False, verify=False) as client:
+        rpc_api_result = client.post(
+            "https://fullnode.devnet.sui.io",
+            headers=builder_rpc_api.header,
+            json=_generate_data_block(
+                builder_rpc_api.data_dict,
+                builder_rpc_api.method,
+                builder_rpc_api.params,
+            ),
+        )
+        print("\nrpc_api_result:", rpc_api_result, "\n")
+except Exception as exc:
+    print("Exception:", exc)
+
 print("initialising sui config")
 try:
     sui_config = SuiConfig.default_config()
@@ -22,21 +51,6 @@ try:
     sui_client = SyncClient(sui_config)
 except Exception as exc:
     print("Sui exception:", exc)
-
-try:
-    import urllib.request
-
-    # The URL you want to send a GET request to
-    url = "https://fullnode.devnet.sui.io"
-    # Use urllib to open the URL and read the response
-    with urllib.request.urlopen(url) as response:
-        # The response object
-        print("result:", response)
-        # To read the content of the response
-        response_text = response.read().decode('utf-8')
-        print("result.text:", response_text)
-except Exception as exc:
-    print("urllib exception:", exc)
 
 
 class NSMUtil():
