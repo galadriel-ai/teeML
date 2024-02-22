@@ -78,8 +78,8 @@ if __name__ == '__main__':
     parser.add_argument(
         '--action',
         type=str,
-        default=ACTION_GET_ATTESTATION,
-        choices=[ACTION_GET_ATTESTATION, ACTION_SIGN_MESSAGE],
+        default=ACTION_PING,
+        choices=[ACTION_PING, ACTION_GET_ATTESTATION, ACTION_SIGN_MESSAGE],
         help="action to run"
     )
     parser.add_argument(
