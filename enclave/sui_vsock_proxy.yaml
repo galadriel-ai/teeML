@@ -1,2 +1,2 @@
 allowlist:
-- {address: https://fullnode.devnet.sui.io, port: 443}
+- {address: fullnode.devnet.sui.io, port: 443}

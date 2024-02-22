@@ -9,7 +9,7 @@ ip link set dev lo up
 # Add a hosts record, pointing target site calls to local loopback
 echo "127.0.0.1   fullnode.devnet.sui.io" >> /etc/hosts
 
-python3.10 /app/traffic_forwarder.py 127.0.0.1 443 3 8000 &
+python3.10 /app/traffic_forwarder.py 127.0.0.1 443 3 8001 &
 
 python3.10 /app/sui_debug.py
 
