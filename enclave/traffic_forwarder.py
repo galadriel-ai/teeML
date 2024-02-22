@@ -38,6 +38,7 @@ def server(local_ip, local_port, remote_cid, remote_port):
 
 
 def forward(source, destination):
+    print("traffic_forwarder, source:", source, ", destination:", destination)
     string = ' '
     while string:
         try:
