@@ -71,7 +71,7 @@ class NSMUtil():
 
         self._alias_info = get_alias_info()
         print("\nAliasInfo:", self._alias_info, "\n")
-        self._public_key = self._alias_info.address
+        self._public_key = bytes.fromhex(self._alias_info.address[2:])
 
     def get_attestation_doc(self):
         """Get the attestation document from /dev/nsm."""
