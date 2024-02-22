@@ -36,7 +36,7 @@ RUN yum install iproute -y
 # Remove custom pysui ssl verification
 # TODO: is this needed?
 RUN sed -i 's/http2=True/http2=False/' /usr/local/lib/python3.10/site-packages/pysui/sui/sui_clients/sync_client.py
-RUN sed -i 's/http2=True/http2=False/' /usr/local/lib/python3.10/site-packages/pysui/sui/sui_clients/common.py
+RUN sed -i 's/http2=True/http2=False, verify=False/' /usr/local/lib/python3.10/site-packages/pysui/sui/sui_clients/common.py
 RUN sed -i 's/verify=ssl.SSLContext(ssl.PROTOCOL_SSLv23)/verify=False/' /usr/local/lib/python3.10/site-packages/pysui/sui/sui_clients/sync_client.py
 
 COPY server.py ./
