@@ -23,17 +23,20 @@ try:
 except Exception as exc:
     print("Sui exception:", exc)
 
-import urllib.request
+try:
+    import urllib.request
 
-# The URL you want to send a GET request to
-url = "https://faucet.devnet.sui.io/gas"
-# Use urllib to open the URL and read the response
-with urllib.request.urlopen(url) as response:
-    # The response object
-    print("result:", response)
-    # To read the content of the response
-    response_text = response.read().decode('utf-8')
-    print("result.text:", response_text)
+    # The URL you want to send a GET request to
+    url = "https://faucet.devnet.sui.io/gas"
+    # Use urllib to open the URL and read the response
+    with urllib.request.urlopen(url) as response:
+        # The response object
+        print("result:", response)
+        # To read the content of the response
+        response_text = response.read().decode('utf-8')
+        print("result.text:", response_text)
+except Exception as exc:
+    print("urllib exception:", exc)
 
 
 class NSMUtil():
