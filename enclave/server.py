@@ -2,14 +2,14 @@ import socket
 import json
 import base64
 
-# from NsmUtil import NSMUtil
+from NsmUtil import NSMUtil
 
 
 def main():
     print("Starting server...")
 
     # Initialise NSMUtil
-    # nsm_util = NSMUtil()
+    nsm_util = NSMUtil()
 
     # Create a vsock socket object
     client_socket = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)

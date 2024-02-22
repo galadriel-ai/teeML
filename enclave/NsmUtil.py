@@ -15,9 +15,12 @@ from pysui import SuiConfig
 from pysui import SyncClient
 from pysui.abstracts import PublicKey
 
+print("importing libnsm")
 import libnsm
 
+print("initialising sui config")
 sui_config = SuiConfig.default_config()
+print("initialising sui client")
 sui_client = SyncClient(sui_config)
 
 
