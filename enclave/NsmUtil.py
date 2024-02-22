@@ -19,9 +19,9 @@ print("importing libnsm")
 import libnsm
 
 print("initialising sui config")
-#sui_config = SuiConfig.default_config()
+sui_config = SuiConfig.default_config()
 print("initialising sui client")
-#sui_client = SyncClient(sui_config)
+sui_client = SyncClient(sui_config)
 
 class NSMUtil():
     """NSM util class."""
