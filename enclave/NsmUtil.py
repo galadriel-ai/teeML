@@ -19,33 +19,26 @@ print("importing libnsm")
 import libnsm
 
 print("initialising sui config")
-try:
-    sui_config = SuiConfig.default_config()
-    print("initialising sui client")
-    sui_client = SyncClient(sui_config)
-    print("\nSUI Initialised!!\n")
+sui_config = SuiConfig.default_config()
+print("initialising sui client")
+sui_client = SyncClient(sui_config)
+print("\nSUI Initialised!!\n")
 
 
-    @dataclass(frozen=True)
-    class AliasInfo:
-        alias: str
-        address: str
-        public_key: PublicKey
+@dataclass(frozen=True)
+class AliasInfo:
+    alias: str
+    address: str
+    public_key: PublicKey
 
 
-    def get_alias_info() -> Optional[AliasInfo]:
-        for alias in sui_config.aliases:
-            return AliasInfo(
-                alias=alias,
-                address=str(sui_config.addr4al(alias)),
-                public_key=sui_config.pk4al(alias)
-            )
-
-
-    alias_info = get_alias_info()
-    print("\nAliasInfo:", alias_info, "\n")
-except Exception as exc:
-    print("Sui exception:", exc)
+def get_alias_info() -> Optional[AliasInfo]:
+    for alias in sui_config.aliases:
+        return AliasInfo(
+            alias=alias,
+            address=str(sui_config.addr4al(alias)),
+            public_key=sui_config.pk4al(alias)
+        )
 
 
 class NSMUtil():
@@ -76,6 +69,10 @@ class NSMUtil():
         # self._public_key = self._alias_info.address
         # print("Got public key:", self._public_key)
 
+        self._alias_info = get_alias_info()
+        print("\nAliasInfo:", self._alias_info, "\n")
+        self._public_key = self._alias_info.address
+
     def get_attestation_doc(self):
         """Get the attestation document from /dev/nsm."""
         libnsm_att_doc_cose_signed = libnsm.nsm_get_attestation_doc(
@@ -90,6 +87,8 @@ class NSMUtil():
         """
         Decrypt ciphertext using private key
         """
+
+        # TODO: is this needed?
         cipher = PKCS1_OAEP.new(self._rsa_key)
         plaintext = cipher.decrypt(ciphertext)
 
@@ -98,6 +97,7 @@ class NSMUtil():
     def sign_message(self, message: str):
         message = str.encode(message)
         hash_obj = SHA256.new(message)
+        # TODO: is this needed?
         signature = pkcs1_15.new(self._rsa_key).sign(hash_obj)
         signature_b64 = base64.b64encode(signature).decode()
         return signature_b64
