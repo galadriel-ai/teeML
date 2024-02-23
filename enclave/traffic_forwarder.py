@@ -4,8 +4,14 @@ import threading
 import time
 import guess_encoding
 
+BUFFER_SIZE = 1024
 
-def server(local_ip, local_port, remote_cid, remote_port):
+REMOTE_CID = 3
+REMOTE_PORT_OPENAI = 8002
+REMOTE_PORT_SUI = 8003
+
+
+def server(local_ip, local_port):
     try:
         dock_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         dock_socket.bind((local_ip, local_port))
@@ -13,9 +19,17 @@ def server(local_ip, local_port, remote_cid, remote_port):
 
         while True:
             client_socket = dock_socket.accept()[0]
+            # first_batch = client_socket.recv(BUFFER_SIZE)
 
             server_socket = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
-            server_socket.connect((remote_cid, remote_port))
+            server_socket.connect((REMOTE_CID, REMOTE_PORT_OPENAI))
+
+            server_socket_sui = None
+            try:
+                server_socket_sui = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
+                server_socket_sui.connect((REMOTE_CID, REMOTE_PORT_SUI))
+            except Exception as exc:
+                print("sui socket exception:", exc)
 
             outgoing_thread = threading.Thread(
                 target=forward,
@@ -28,10 +42,14 @@ def server(local_ip, local_port, remote_cid, remote_port):
 
             outgoing_thread.start()
             incoming_thread.start()
+
+            try:
+                server_socket_sui.shutdown(socket.SHUT_WR)
+            except Exception as exc:
+                print("shutdown exception:", exc)
     finally:
         new_thread = threading.Thread(target=server,
-                                      args=(local_ip, local_port, remote_cid,
-                                            remote_port))
+                                      args=(local_ip, local_port))
         new_thread.start()
 
     return
@@ -68,8 +86,7 @@ def main(args):
     remote_port = int(args[3])
 
     thread = threading.Thread(target=server,
-                              args=(local_ip, local_port, remote_cid,
-                                    remote_port))
+                              args=(local_ip, local_port))
     thread.start()
     print(
         f"starting forwarder on {local_ip}:{local_port} {remote_cid}:{remote_port}"
