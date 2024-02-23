@@ -44,6 +44,7 @@ COPY traffic_forwarder.py ./
 
 # TODO: debug only
 COPY sui_debug.py ./
+COPY openai_call.py ./
 
 RUN chmod +x run.sh
 

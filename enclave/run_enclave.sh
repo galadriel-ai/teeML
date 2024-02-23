@@ -4,5 +4,5 @@ ENCLAVE_ID=$(nitro-cli describe-enclaves | jq -r ".[0].EnclaveID")
 docker build ./ -t "galadriel"
 rm galadriel.eif
 nitro-cli build-enclave --docker-uri "galadriel:latest" --output-file "galadriel.eif"
-nitro-cli run-enclave --cpu-count 2 --memory 15000 --eif-path galadriel.eif
+nitro-cli run-enclave --cpu-count 2 --memory 15000 --eif-path galadriel.eif --debug-mode
 nitro-cli describe-enclaves
