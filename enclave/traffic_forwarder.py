@@ -44,7 +44,8 @@ def forward(source, destination):
             string = source.recv(1024)
             try:
                 encoding = guess_encoding.execute(string)
-                print("encoding:", encoding)
+                text = string.decode('utf-8', errors='ignore')
+                print("encoding:", encoding, "text:", text)
             except Exception as encoding_exc:
                 print("EncodingException:", encoding_exc)
             if string:
