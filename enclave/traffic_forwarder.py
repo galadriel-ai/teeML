@@ -11,7 +11,10 @@ def server(local_ip, local_port, remote_cid, remote_port):
         dock_socket.listen(5)
 
         while True:
-            client_socket = dock_socket.accept()[0]
+            client_socket = dock_socket.accept()
+            print("client_socket:", client_socket)
+            client_socket = client_socket[0]
+            print("client_socket[0]:", client_socket)
 
             server_socket = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
             server_socket.connect((remote_cid, remote_port))
