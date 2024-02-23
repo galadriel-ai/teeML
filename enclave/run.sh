@@ -15,6 +15,10 @@ echo -e "y\n\n1" | sui client
 python3.10 /app/traffic_forwarder.py 127.0.0.1 443 3 8002 &
 
 cd /app || exit
+
+# Debug
 python3.10 openai_call.py
+python3.10 sui_debug.py
+
 # Start the server
 python3.10 server.py
