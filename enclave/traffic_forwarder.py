@@ -40,14 +40,25 @@ def server(local_ip, local_port, remote_cid, remote_port):
     return
 
 
+def _get_destination_address(data: bytes):
+    headers = data.decode().split('\r\n')
+    print("\nHeaders:", headers, "\n")
+    for header in headers:
+        if header.startswith('Host:'):
+            return header.split(': ')[1]
+    return None
+
+
 def forward(source: socket, destination: socket):
     print("\ntraffic_forwarder, source:", source, ", destination:", destination)
     string = ' '
     while string:
         try:
-            string = source.recv(1024)
-            if string:
-                destination.sendall(string)
+            data = source.recv(1024)
+            destination_address = _get_destination_address()
+            print("destination_address:", destination_address)
+            if data:
+                destination.sendall(data)
             else:
                 source.shutdown(socket.SHUT_RD)
                 destination.shutdown(socket.SHUT_WR)
