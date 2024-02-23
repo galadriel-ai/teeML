@@ -19,9 +19,9 @@ vi /etc/nitro_enclaves/allocator.yaml
 sudo systemctl start nitro-enclaves-allocator.service && sudo systemctl enable nitro-enclaves-allocator.service
 
 # Setup vsock proxy to connect to SUI fullnode
-sudo systemctl stop nitro-enclaves-vsock-proxy.service
-# sudo echo "- {address: fullnode.devnet.sui.io, port: 443}" >> /etc/nitro_enclaves/vsock-proxy.yaml
-# vsock-proxy 8001 fullnode.devnet.sui.io 443 --config sui_vsock_proxy.yaml
+cd enclave
+vsock-proxy 8001 fullnode.devnet.sui.io 443 --config vsock/vsock_proxy_sui_devnet.yaml
+vsock-proxy 8002 api.openai.com 443 --config vsock/vsock_proxy_openai.yaml
 sudo vi /etc/nitro_enclaves/vsock-proxy.yaml
 sudo systemctl start nitro-enclaves-vsock-proxy.service
 ```
