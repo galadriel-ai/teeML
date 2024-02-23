@@ -42,8 +42,11 @@ def forward(source, destination):
     while string:
         try:
             string = source.recv(1024)
-            encoding = guess_encoding.execute(string)
-            print("encoding:", encoding)
+            try:
+                encoding = guess_encoding.execute(string)
+                print("encoding:", encoding)
+            except Exception as encoding_exc:
+                print("EncodingException:", encoding_exc)
             if string:
                 destination.sendall(string)
             else:
