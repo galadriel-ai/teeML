@@ -42,7 +42,7 @@ def server(local_ip, local_port, remote_cid, remote_port):
 
 def _get_destination_address(data: bytes):
     headers = data.decode().split('\r\n')
-    print("\nHeaders:", headers, "\n")
+    # print("\nHeaders:", headers, "\n")
     for header in headers:
         if header.startswith('Host:'):
             return header.split(': ')[1]
