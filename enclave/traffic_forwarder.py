@@ -55,7 +55,7 @@ def forward(source: socket, destination: socket):
     while string:
         try:
             data = source.recv(1024)
-            destination_address = _get_destination_address()
+            destination_address = _get_destination_address(data)
             print("destination_address:", destination_address)
             if data:
                 destination.sendall(data)
