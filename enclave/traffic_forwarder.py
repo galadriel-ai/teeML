@@ -2,9 +2,6 @@ import socket
 import sys
 import threading
 import time
-from dataclasses import dataclass
-
-import guess_encoding
 
 BUFFER_SIZE = 1024
 
@@ -14,7 +11,7 @@ REMOTE_PORT_SUI = 8003
 
 
 def guess_the_destination_port(data: bytes) -> int:
-    print("\nguess_the_destination_port")
+    # the encoding is not utf-8 nor ascii, so ignoring errors and doing best guess
     text = data.decode('utf-8', errors='ignore')
     print("  text:", text)
     if "api.openai.com" in text:
@@ -35,6 +32,7 @@ def server(local_ip, local_port):
             client_socket = dock_socket.accept()[0]
             first_batch = client_socket.recv(BUFFER_SIZE)
             destination_port = guess_the_destination_port(first_batch)
+            print("Got destination port:", destination_port)
 
             server_socket = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
             server_socket.connect((REMOTE_CID, destination_port))
