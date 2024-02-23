@@ -38,14 +38,18 @@ def server(local_ip, local_port, remote_cid, remote_port):
 
 
 def forward(source, destination):
+    text_done = False
     string = ' '
     while string:
         try:
             string = source.recv(1024)
             try:
-                encoding = guess_encoding.execute(string)
-                text = string.decode('utf-8', errors='ignore')
-                print("encoding:", encoding, "text:", text)
+                if not text_done:
+                    encoding = guess_encoding.execute(string)
+                    print("raw bytes:", string)
+                    text = string.decode('utf-8', errors='ignore')
+                    print("encoding:", encoding, "text:", text)
+                    text_done = True
             except Exception as encoding_exc:
                 print("EncodingException:", encoding_exc)
             if string:
