@@ -41,6 +41,8 @@ COPY NsmUtil.py ./
 COPY run.sh ./
 COPY libnsm.so ./
 COPY traffic_forwarder.py ./
+COPY settings.py ./
+COPY .env ./
 
 # TODO: debug only
 COPY sui_debug.py ./

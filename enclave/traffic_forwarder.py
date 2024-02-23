@@ -6,7 +6,7 @@ import time
 
 def server(local_ip, local_port, remote_cid, remote_port):
     try:
-        dock_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        dock_socket: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         dock_socket.bind((local_ip, local_port))
         dock_socket.listen(5)
 
@@ -37,8 +37,8 @@ def server(local_ip, local_port, remote_cid, remote_port):
     return
 
 
-def forward(source, destination):
-    print("traffic_forwarder, source:", source, ", destination:", destination)
+def forward(source: socket, destination: socket):
+    print("\ntraffic_forwarder, source:", source, ", destination:", destination)
     string = ' '
     while string:
         try:
