@@ -31,7 +31,7 @@ try:
             ),
         )
         print("\nrpc_api_result:", rpc_api_result)
-        print("rpc_api_result.content", rpc_api_result.content)
+        print("rpc_api_result.content", rpc_api_result.json()["result"]["info"])
         print("")
 except Exception as exc:
     print("Exception:", exc)
