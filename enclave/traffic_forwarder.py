@@ -76,15 +76,11 @@ def forward(source, destination, first_string: bytes = None):
 def main(args):
     local_ip = str(args[0])
     local_port = int(args[1])
-    remote_cid = int(args[2])
-    remote_port = int(args[3])
 
     thread = threading.Thread(target=server,
                               args=(local_ip, local_port))
     thread.start()
-    print(
-        f"starting forwarder on {local_ip}:{local_port} {remote_cid}:{remote_port}"
-    )
+    print(f"starting forwarder on {local_ip}:{local_port}")
     while True:
         time.sleep(60)
 
