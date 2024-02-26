@@ -32,14 +32,11 @@ def server(local_ip, local_port):
         dock_socket.listen(5)
 
         while True:
-            time.sleep(30)
             client_socket = dock_socket.accept()[0]
             first_batch = client_socket.recv(BUFFER_SIZE)
             print("first_batch:", first_batch)
             destination_port = guess_the_destination_port(first_batch)
             print("destination_port:", destination_port)
-
-            time.sleep(60)
 
             server_socket = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
             server_socket.connect((REMOTE_CID, destination_port))
