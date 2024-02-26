@@ -1,12 +1,13 @@
 # AWS Enclave
 
 Prerequirements:
+
 * setup aws nitro enclave supported VM
 * do bunch of more stuff...
-  * https://catalog.workshops.aws/nitro-enclaves/en-US/0-getting-started/prerequisites
-  * https://catalog.workshops.aws/nitro-enclaves/en-US/1-my-first-enclave/1-1-nitro-enclaves-cli
-  * https://www.notion.so/nftport/TEE-b4069289b4bd49ae810010eceaece2d6
-  * https://docs.aws.amazon.com/enclaves/latest/user/verify-root.html
+    * https://catalog.workshops.aws/nitro-enclaves/en-US/0-getting-started/prerequisites
+    * https://catalog.workshops.aws/nitro-enclaves/en-US/1-my-first-enclave/1-1-nitro-enclaves-cli
+    * https://www.notion.so/nftport/TEE-b4069289b4bd49ae810010eceaece2d6
+    * https://docs.aws.amazon.com/enclaves/latest/user/verify-root.html
 
 ### Create and run an AWS Nitro Enclave
 
@@ -14,16 +15,19 @@ Prerequirements:
 * the libnsm is rust shared object with python wrapper around it
 
 ```shell
+# Optional: estimate the memory size of the enclave
+EIF_SIZE=$(du -b --block-size=1M "galadriel.eif" | cut -f 1)
+ENCLAVE_MEMORY_SIZE=$(((($EIF_SIZE * 4 + 1024 - 1)/1024) * 1024))    
+
 sudo systemctl stop nitro-enclaves-allocator.service
 vi /etc/nitro_enclaves/allocator.yaml
 sudo systemctl start nitro-enclaves-allocator.service && sudo systemctl enable nitro-enclaves-allocator.service
 
 # Setup vsock proxy to connect to SUI fullnode
 cd enclave
+<<<<<<< HEAD
 nohup vsock-proxy 8002 api.openai.com 443 --config vsock/vsock_proxy_openai.yaml &> openai_vsock_proxy.log &
 nohup vsock-proxy 8003 fullnode.devnet.sui.io 443 --config vsock/vsock_proxy_sui_devnet.yaml &> sui_vsock_proxy.log &
-sudo vi /etc/nitro_enclaves/vsock-proxy.yaml
-sudo systemctl start nitro-enclaves-vsock-proxy.service
 ```
 
 ```shell
@@ -41,6 +45,7 @@ nitro-cli console --enclave-id <enclave cid> # Optional: if running in debug mod
 ```
 
 Enclave data example:
+
 ```json
 {
   "Measurements": {
@@ -76,31 +81,35 @@ python sui_publish_attestation.py
 1. Need deterministic docker build? How?
 2. Given the same docker image is the enclave always the same?
 
-
 ### Crypto references
 
 Python examples on how to create keys, create signature and validate.
 
 RSA:
+
 ```shell
 python script_sign_message_rsa.py
 ```
 
 secp256k1:
+
 ```shell
 python script_sign_message_secp256k1.py
 ```
 
 Running on SUI Move:
 
-Download some version of sui-mainnet binary from github releases, for example v1.17.3.
+Download some version of sui-mainnet binary from github releases, for example
+v1.17.3.
 
 Run the localnet:
+
 ```shell
 ./sui-mainnet-v1.17.3-macos-arm64/target/release/sui-test-validator-macos-arm64
 ```
 
 Another window:
+
 ```shell
 # get funds to deploy and send tx
 sui client active-address
@@ -129,26 +138,28 @@ Package ID: 0x192a913ca8e84ff9a6bd2f3b038a5460240c73aa037859630606147ddec14f20
 KeyStorage ID: 0x9eb035a86cdbe0a0a04b9c39bcf71e835af1a4f0c6bb26b611f31bccc02d8feb
 ```
 
-
 # Attestation
 
 0. we deploy oracle contract
 
 1. Open source oracle codebase
-2. When oracle starts, 
-   * it will generate a keypair and store the private key in the enclave
-   * we ask the public key and fund the account and give write access to oracle contract
-   * oracle polls until it has funds
-   * once funds arrive, it will generate attestation and push attestation and public key to the chain in the oracle
+2. When oracle starts,
+    * it will generate a keypair and store the private key in the enclave
+    * we ask the public key and fund the account and give write access to oracle
+      contract
+    * oracle polls until it has funds
+    * once funds arrive, it will generate attestation and push attestation and
+      public key to the chain in the oracle
 
 3. Agent dev
-   * off chain read the oracle public key from the chain 
-   * create AgentRun with that public key
+    * off chain read the oracle public key from the chain
+    * create AgentRun with that public key
 
 # Admin
 
 * get public address of the enclave
 * send SUI:
+
 ```shell
 sui client transfer-sui \
   --to 0x67ddc499ac49ea7fe6310bb3937083a323da8cd1f172664a68dab597671068af \

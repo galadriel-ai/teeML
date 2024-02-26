@@ -43,11 +43,13 @@ COPY libnsm.so ./
 COPY traffic_forwarder.py ./
 COPY settings.py ./
 COPY guess_encoding.py ./
+# TODO: is this non deterministic?
 COPY .env ./
 
 # TODO: debug only
-COPY sui_debug.py ./
-COPY openai_call.py ./
+COPY proxy_checks/openai_call.py ./proxy_checks/
+COPY proxy_checks/sui_debug.py ./proxy_checks/
+COPY check_proxies.py ./
 
 RUN chmod +x run.sh
 
