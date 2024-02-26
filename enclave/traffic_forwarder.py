@@ -48,6 +48,8 @@ def server(local_ip, local_port):
 
             outgoing_thread.start()
             incoming_thread.start()
+    except Exception as exc:
+        print("TrafficForwarder exception:", exc)
     finally:
         new_thread = threading.Thread(target=server,
                                       args=(local_ip, local_port))
