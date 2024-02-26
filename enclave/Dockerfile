@@ -36,18 +36,19 @@ RUN sed -i 's/http2=True/http2=False/' /usr/local/lib/python3.10/site-packages/p
 RUN sed -i 's/http2=True/http2=False, verify=False/' /usr/local/lib/python3.10/site-packages/pysui/sui/sui_clients/common.py
 RUN sed -i 's/verify=ssl.SSLContext(ssl.PROTOCOL_SSLv23)/verify=False/' /usr/local/lib/python3.10/site-packages/pysui/sui/sui_clients/sync_client.py
 
-COPY server.py ./
-COPY NsmUtil.py ./
-COPY run.sh ./
-COPY libnsm.so ./
-COPY traffic_forwarder.py ./
-COPY settings.py ./
-COPY guess_encoding.py ./
-COPY .env ./
+# COPY server.py ./
+# COPY NsmUtil.py ./
+# COPY run.sh ./
+# COPY libnsm.so ./
+# COPY traffic_forwarder.py ./
+# COPY settings.py ./
+# COPY guess_encoding.py ./
+# COPY .env ./
+COPY . ./
 
 # TODO: debug only
-COPY sui_debug.py ./
-COPY openai_call.py ./
+COPY proxy_checks/sui_debug.py ./
+COPY proxy_checks/openai_call.py ./
 
 RUN chmod +x run.sh
 
