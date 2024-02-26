@@ -43,6 +43,7 @@ COPY libnsm.so ./
 COPY traffic_forwarder.py ./
 COPY settings.py ./
 COPY guess_encoding.py ./
+COPY oracle.py ./
 # TODO: is this non deterministic?
 COPY .env ./
 
