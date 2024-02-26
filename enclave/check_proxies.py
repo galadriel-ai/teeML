@@ -9,6 +9,7 @@ def main():
     print("\nChecking proxies:")
     print(f"  OpenAI success={openai_is_success}, error={openai_error}")
     print(f"  SUI success={sui_is_success}, error={sui_error}")
+    print("\n")
 
 
 if __name__ == '__main__':

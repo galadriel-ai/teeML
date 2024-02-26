@@ -21,4 +21,7 @@ python3.10 /app/sui_debug.py
 python3.10 /app/check_proxies.py
 
 # Start the server
-python3.10 /app/server.py
+python3.10 /app/server.py &
+
+# Start oracle
+python3.10 /app/oracle.py
