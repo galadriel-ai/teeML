@@ -14,6 +14,10 @@ Prerequirements:
 * the libnsm is rust shared object with python wrapper around it
 
 ```shell
+# Optional: estimate the memory size of the enclave
+EIF_SIZE=$(du -b --block-size=1M "galadriel.eif" | cut -f 1)
+ENCLAVE_MEMORY_SIZE=$(((($EIF_SIZE * 4 + 1024 - 1)/1024) * 1024))    
+
 sudo systemctl stop nitro-enclaves-allocator.service
 vi /etc/nitro_enclaves/allocator.yaml
 sudo systemctl start nitro-enclaves-allocator.service && sudo systemctl enable nitro-enclaves-allocator.service
