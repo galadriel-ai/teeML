@@ -3,3 +3,13 @@ pysui @ git+https://github.com/FrankC01/pysui.git@95c5736d5a5c4e213ea2ad49dbce81
 requests==2.31.0
 python-dotenv==1.0.1
 chardet==5.2.0
+chromadb==0.4.22
+langchain==0.1.5
+langchain-community==0.0.17
+langchain-core==0.1.18
+langchain-openai==0.0.5
+openai==1.11.1
+termcolor==2.4.0
+sentence-transformers==2.3.1
+
+
