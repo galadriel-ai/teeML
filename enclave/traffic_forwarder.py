@@ -6,19 +6,31 @@ import time
 BUFFER_SIZE = 1024
 
 REMOTE_CID = 3
-REMOTE_PORT_OPENAI = 8002
-REMOTE_PORT_SUI = 8003
+REMOTE_PORT_OPENAI = 8001
+REMOTE_PORT_SUI = 8002
+REMOTE_PORT_IPFS = 8003
+REMOTE_PORT_BACALHAU = 8004
+REMOTE_PORT_SERPER = 8005
+
+REMOTE_PORTS = {
+    "api.openai.com": 8001,
+    "fullnode.devnet.sui.io": 8002,
+    "ipfs.io": 8003,
+    "bootstrap.production.bacalhau.org": 8004,
+    "google.serper.dev": 8005,
+}
 
 
 def guess_the_destination_port(data: bytes) -> int:
     # the encoding is not utf-8 nor ascii, so ignoring errors and doing best guess
     text = data.decode('utf-8', errors='ignore')
     print("  text:", text)
-    if "api.openai.com" in text:
-        return REMOTE_PORT_OPENAI
-    elif "fullnode.devnet.sui.io" in text:
-        return REMOTE_PORT_SUI
+    for url, port in REMOTE_PORTS.items():
+        if url in text:
+            print(f"Got destination port: {port} for url: {url}")
+            return port
     # TODO: what if no destination?
+    print("Error, did not get a destination port!\n")
     return REMOTE_PORT_SUI
 
 
@@ -32,7 +44,6 @@ def server(local_ip, local_port):
             client_socket = dock_socket.accept()[0]
             first_batch = client_socket.recv(BUFFER_SIZE)
             destination_port = guess_the_destination_port(first_batch)
-            print("Got destination port:", destination_port)
 
             server_socket = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
             server_socket.connect((REMOTE_CID, destination_port))
