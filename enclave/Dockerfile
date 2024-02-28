@@ -1,4 +1,4 @@
-FROM amazonlinux
+FROM amazonlinux:2023.3.20240219.0
 
 # Install python for running the server and net-tools for modifying network config
 RUN yum update -y
@@ -46,6 +46,7 @@ COPY guess_encoding.py ./
 COPY oracle.py ./
 # TODO: is this non deterministic?
 COPY .env ./
+COPY oracles ./oracles
 
 # TODO: debug only
 COPY proxy_checks/openai_call.py ./proxy_checks/
