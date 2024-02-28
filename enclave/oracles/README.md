@@ -1,13 +1,5 @@
 # Oracles
 
-### Dependencies
-
-Install Bacalhau client
-
-```shell
-curl -sL https://get.bacalhau.org/install.sh | bash
-```
-
 ### Deployment
 
 ```shell

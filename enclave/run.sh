@@ -23,5 +23,8 @@ python3.10 /app/check_proxies.py
 # Start the server
 python3.10 /app/server.py &
 
-# Start oracle
+# Start oracle setup
 python3.10 /app/oracle.py
+
+# Start the client
+cd /app/oracles && python3.10 oracle_iterator.py

@@ -104,7 +104,7 @@ def main():
     alias = _get_alias_info()
     print("Alias:", alias)
     _wait_for_funds(alias)
-    _send_tx(alias.address, "IamAnEnclave")
+    # _send_tx(alias.address, "IamAnEnclave")
     time.sleep(60)
 
 
