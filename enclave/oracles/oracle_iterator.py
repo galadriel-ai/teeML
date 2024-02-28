@@ -74,21 +74,21 @@ async def main() -> None:
     while True:
         await _index_agents(settings.REGISTRY_OBJECT_ID, agent_database)
         for agent in agent_database.agents:
-            # if not agent.is_finished:
             if not agent.is_finished:
                 is_success: bool = await _handle_agent_run(agent.package_id, agent.object_id)
                 if is_success:
-                    is_finish_success = await _finish_agent_run(
-                        registry_package_id=settings.REGISTRY_PACKAGE_ID,
-                        registry_object_id=settings.REGISTRY_OBJECT_ID,
-                        k=agent.index,
-                        admin_cap_object_id=settings.ADMIN_CAP_OBJECT_ID,
-                    )
-                    if is_finish_success:
-                        print(f"Successfully finished agent run with index {agent.index}", flush=True)
-                        agent.is_finished = True
-                    else:
-                        print(f"Failed to finish agent run with index {agent.index}", flush=True)
+                    agent.is_finished = True
+                    # is_finish_success = await _finish_agent_run(
+                    #     registry_package_id=settings.REGISTRY_PACKAGE_ID,
+                    #     registry_object_id=settings.REGISTRY_OBJECT_ID,
+                    #     k=agent.index,
+                    #     admin_cap_object_id=settings.ADMIN_CAP_OBJECT_ID,
+                    # )
+                    # if is_finish_success:
+                    #     print(f"Successfully finished agent run with index {agent.index}", flush=True)
+                    #     agent.is_finished = True
+                    # else:
+                    #     print(f"Failed to finish agent run with index {agent.index}", flush=True)
         time.sleep(10)
 
 
