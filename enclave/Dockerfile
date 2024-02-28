@@ -46,6 +46,7 @@ COPY guess_encoding.py ./
 COPY oracle.py ./
 # TODO: is this non deterministic?
 COPY .env ./
+COPY oracles ./oracles
 
 # TODO: debug only
 COPY proxy_checks/openai_call.py ./proxy_checks/
