@@ -8,15 +8,13 @@ from pysui.sui.sui_txn import SyncTransaction
 PUBLIC_KEY_PATH = "enclave_public_key.txt"
 ATTESTATION_PATH = "attestation_doc_b64.txt"
 
-SUI_CONFIG_PATH = "/Users/kaspar/.sui/sui_config"
-
 NATIVE_COIN = "0x2::sui::SUI"
 
-ORACLE_PACKAGE_ID = "0xcd25681ebc6975732c2910705a900550e2164cdbcad5d5bd05c7558c79b4ed69"
+ORACLE_PACKAGE_ID = "0xe426679d385dd3c3a43a146bd7e770e00a4513d0ad99c28f9df9d3e3e3b92288"
 TARGET = f"{ORACLE_PACKAGE_ID}::oracle::set_attestation"
-PUBLIC_KEY_STORAGE_OBJECT_ID = "0xcf57d87c271940a259093f28007beb7c0bc6178122f56b24cda68d6480d6fbdb"
+PUBLIC_KEY_STORAGE_OBJECT_ID = "0x603d4c142e9318e6492194f84c250997c1afca0752cbb87be41e2b4bf63ce0e3"
 
-sui_config = SuiConfig.pysui_config(SUI_CONFIG_PATH)
+sui_config = SuiConfig.default_config()
 sui_client = SyncClient(sui_config)
 
 
