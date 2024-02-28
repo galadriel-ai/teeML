@@ -254,6 +254,7 @@ async def _iterate_agent(
 ) -> bool:
     try:
         for_owner: SuiAddress = sui_client.config.active_address
+        print("\nfor owner:", for_owner, "\n")
         txn = AsyncTransaction(client=sui_client, initial_sender=for_owner)
         await txn.move_call(
             target=f"{package_id}::agent::iterate_agent",
