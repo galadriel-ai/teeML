@@ -105,7 +105,7 @@ def main():
     print("Alias:", alias)
     _wait_for_funds(alias)
     # _send_tx(alias.address, "IamAnEnclave")
-    time.sleep(60)
+    time.sleep(5)
 
 
 if __name__ == '__main__':
