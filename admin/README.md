@@ -28,7 +28,7 @@ curl --location --request POST 'https://faucet.devnet.sui.io/gas' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "FixedAmountRequest": {
-        "recipient": "0x5a1c3cc19acfd04538fd7ae83195eb394d1836e4e3c085ce7b5cae9a74908dbc"
+        "recipient": "0xdce322a48d4649fa14490962c5fc5daeaa0bb48d9249c007fc8316092250feb3"
     }
 }'
 ```
