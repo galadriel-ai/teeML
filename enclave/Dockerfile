@@ -1,16 +1,14 @@
+LABEL org.opencontainers.image.source=https://github.com/galadriel-ai/aws-enclave
+LABEL org.opencontainers.image.description="AWS Enclave Image"
+LABEL org.opencontainers.image.licenses=MIT
+
 FROM amazonlinux:2023.3.20240219.0
 
 # Install python for running the server and net-tools for modifying network config
 RUN yum update -y
 RUN yum groupinstall "Development Tools" -y
 RUN yum install openssl-devel bzip2-devel libffi-devel wget net-tools git iproute -y
-#RUN yum install \
-#    openssl-devel-1:3.0.8-1.amzn2023.0.11.x86_64  \
-#    bzip2-devel-1.0.8-6.amzn2023.0.2.x86_64  \
-#    libffi-devel-3.4.4-1.amzn2023.0.1.x86_64  \
-#    wget-1.21.3-1.amzn2023.0.3.x86_64  \
-#    net-tools-2.0-0.59.20160912git.amzn2023.0.3.x86_64  \
-#    git-2.40.1-1.amzn2023.0.1.x86_64 -y \
+
 
 WORKDIR /tmp
 RUN wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz
