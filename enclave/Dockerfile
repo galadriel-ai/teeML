@@ -3,7 +3,7 @@ FROM amazonlinux:2023.3.20240219.0
 # Install python for running the server and net-tools for modifying network config
 # RUN yum update -y
 WORKDIR /tmp
-#RUN yum groupinstall "Development Tools" -y
+RUN yum groupinstall "Development Tools" -y
 RUN yum install \
     openssl-devel-1:3.0.8-1.amzn2023.0.11.x86_64  \
     bzip2-devel-1.0.8-6.amzn2023.0.2.x86_64  \
