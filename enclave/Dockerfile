@@ -1,7 +1,7 @@
 FROM amazonlinux:2023.3.20240219.0
 
 # Install python for running the server and net-tools for modifying network config
-# RUN yum update -y
+RUN yum update -y
 WORKDIR /tmp
 RUN yum groupinstall "Development Tools" -y
 RUN yum install \
