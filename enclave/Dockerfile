@@ -1,6 +1,7 @@
-LABEL org.opencontainers.image.source=https://github.com/galadriel-ai/aws-enclave
-LABEL org.opencontainers.image.description="AWS Enclave Image"
-LABEL org.opencontainers.image.licenses=MIT
+# docker build \
+# --label "org.opencontainers.image.source=https://github.com/galadriel-ai/aws-enclave" \
+# --label "org.opencontainers.image.description=AWS Enclave Image"" \
+# --label "org.opencontainers.image.licenses=MIT"
 
 FROM amazonlinux:2023.3.20240219.0
 
