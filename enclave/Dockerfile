@@ -2,7 +2,6 @@ FROM amazonlinux:2023.3.20240219.0
 
 # Install python for running the server and net-tools for modifying network config
 RUN yum update -y
-WORKDIR /tmp
 RUN yum groupinstall "Development Tools" -y
 RUN yum install openssl-devel bzip2-devel libffi-devel wget net-tools git iproute -y
 #RUN yum install \
@@ -13,6 +12,7 @@ RUN yum install openssl-devel bzip2-devel libffi-devel wget net-tools git iprout
 #    net-tools-2.0-0.59.20160912git.amzn2023.0.3.x86_64  \
 #    git-2.40.1-1.amzn2023.0.1.x86_64 -y \
 
+WORKDIR /tmp
 RUN wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz
 RUN tar -xf Python-3.10.4.tgz
 RUN cd Python-3.10.4/ && ./configure --enable-optimizations
