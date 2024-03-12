@@ -35,6 +35,9 @@ COPY key_manager.py ./
 COPY .env ./
 COPY oracles ./oracles
 
+COPY .env.encrypted ./
+COPY sidekik-ai.json.encrypted ./
+
 # TODO: debug only
 COPY proxy_checks ./proxy_checks/
 COPY check_proxies.py ./
