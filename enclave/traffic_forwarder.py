@@ -7,17 +7,13 @@ BUFFER_SIZE = 1024
 
 REMOTE_CID = 3
 REMOTE_PORT_OPENAI = 8001
-REMOTE_PORT_SUI = 8002
-REMOTE_PORT_IPFS = 8003
-REMOTE_PORT_BACALHAU = 8004
-REMOTE_PORT_SERPER = 8005
+REMOTE_PORT_SERPER = 8002
+REMOTE_PORT_GALADRIEL = 8003
 
 REMOTE_PORTS = {
-    "api.openai.com": 8001,
-    "fullnode.devnet.sui.io": 8002,
-    "ipfs.io": 8003,
-    "bootstrap.production.bacalhau.org": 8004,
-    "google.serper.dev": 8005,
+    "api.openai.com": REMOTE_PORT_OPENAI,
+    "google.serper.dev": REMOTE_PORT_SERPER,
+    "testnet.galadriel.com": REMOTE_PORT_GALADRIEL,
 }
 
 
@@ -31,7 +27,7 @@ def guess_the_destination_port(data: bytes) -> int:
             return port
     # TODO: what if no destination?
     print("Error, did not get a destination port!\n")
-    return REMOTE_PORT_SUI
+    return REMOTE_PORT_OPENAI
 
 
 def server(local_ip, local_port):

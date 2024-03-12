@@ -1,0 +1,2 @@
+allowlist:
+  - { address: testnet.galadriel.com, port: 443 }

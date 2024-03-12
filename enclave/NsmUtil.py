@@ -11,34 +11,23 @@ from Crypto.Cipher import PKCS1_OAEP
 from Crypto.Signature import pkcs1_15
 from Crypto.Hash import SHA256
 
-from pysui import SuiConfig
-from pysui import SyncClient
-from pysui.abstracts import PublicKey
-
 print("importing libnsm")
 import libnsm
-
-print("initialising sui config")
-sui_config = SuiConfig.default_config()
-print("initialising sui client")
-sui_client = SyncClient(sui_config)
-print("\nSUI Initialised!!\n")
 
 
 @dataclass(frozen=True)
 class AliasInfo:
     alias: str
     address: str
-    public_key: PublicKey
+    public_key: str
 
 
 def get_alias_info() -> Optional[AliasInfo]:
-    for alias in sui_config.aliases:
-        return AliasInfo(
-            alias=alias,
-            address=str(sui_config.addr4al(alias)),
-            public_key=sui_config.pk4al(alias)
-        )
+    return AliasInfo(
+        alias="Mock",
+        address="0xMock",
+        public_key="0xMock"
+    )
 
 
 class NSMUtil():

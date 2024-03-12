@@ -1,2 +1,0 @@
-allowlist:
-- {address: bootstrap.production.bacalhau.org, port: 1234}
