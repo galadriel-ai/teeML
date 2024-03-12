@@ -30,6 +30,7 @@ COPY traffic_forwarder.py ./
 COPY settings.py ./
 COPY guess_encoding.py ./
 COPY oracle.py ./
+COPY key_manager.py ./
 # TODO: is this non deterministic?
 COPY .env ./
 COPY oracles ./oracles
