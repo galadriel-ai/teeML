@@ -24,11 +24,16 @@ python sui_publish_attestation.py
 Devnet faucet:
 
 ```shell
-curl --location --request POST 'https://faucet.devnet.sui.io/gas' \
+curl --location --request POST '0.0.0.0:9123/gas' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "FixedAmountRequest": {
-        "recipient": "0xdce322a48d4649fa14490962c5fc5daeaa0bb48d9249c007fc8316092250feb3"
+        "recipient": "0x5a1c3cc19acfd04538fd7ae83195eb394d1836e4e3c085ce7b5cae9a74908dbc"
     }
 }'
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"jsonrpc":"2.0","id":1,"method":"suix_getBalance","params":["0x5a1c3cc19acfd04538fd7ae83195eb394d1836e4e3c085ce7b5cae9a74908dbc"]}' \
+  https://testnet.galadriel.com
 ```

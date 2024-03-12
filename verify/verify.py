@@ -3,7 +3,7 @@ import sys
 
 import attestation_verifier
 
-ATTESTATION_DOC_B64_PATH = "attestation_doc_b64.txt"
+ATTESTATION_DOC_B64_PATH = "../admin/attestation_doc_b64.txt"
 
 
 def _read_attestation_doc():
@@ -17,7 +17,7 @@ def get_root_pem():
 
 
 def save_public_key(public_key):
-    with open("enclave_public_key.txt", "w") as file_out:
+    with open("../admin/enclave_public_key.txt", "w") as file_out:
         file_out.write(public_key)
 
 
