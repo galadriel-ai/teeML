@@ -10,8 +10,6 @@ echo "127.0.0.1   api.openai.com" >> /etc/hosts
 echo "127.0.0.1   google.serper.dev" >> /etc/hosts
 echo "127.0.0.1   testnet.galadriel.com" >> /etc/hosts
 
-echo -e "y\n\n1" | sui client
-
 python3.10 /app/traffic_forwarder.py 127.0.0.1 443 &
 
 # Debug
