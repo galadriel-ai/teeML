@@ -1,9 +1,8 @@
-def execute() -> (bool, str):
+async def execute() -> (bool, str):
     try:
         import settings
         import requests
 
-        print("\n=== Making OPENAI call ===")
         URL = "https://api.openai.com/v1/chat/completions"
         HEADERS = {
             "Content-Type": "application/json",
@@ -23,12 +22,10 @@ def execute() -> (bool, str):
             ]
         }
         result = requests.post(URL, headers=HEADERS, json=DATA)
-        print("Result from OPENAI:", result)
         if not result.status_code == 200:
             return False, f"Status code from API: {result.status_code}"
         data = result.json()
         print("result:", data)
-        print("=== OPENAI Call done ===\n")
         return True, ""
     except Exception as exc:
         return False, str(exc)
