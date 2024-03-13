@@ -22,8 +22,11 @@ sleep 20
 python3.10 /app/key_manager.py
 
 # TODO: remove these for production!
-echo "DOT ENV"
+echo "\nDOT ENV"
 cat /app/.env
+cp /app/.env /app/oracles/.env
+echo "\nOracle DOT ENV"
+cat /app/oracles/.env
 echo "\nGCP CREDENTIALS"
 cat /app/sidekik.json
 
