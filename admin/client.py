@@ -4,6 +4,8 @@ import argparse
 import subprocess
 import time
 
+import settings
+
 ATTESTATION_OUTPUT = "attestation_doc_b64.txt"
 
 ACTION_PING = "ping"
@@ -51,14 +53,21 @@ def _action_sign_message(s, message):
     print("signature_b64:", signature_b64)
 
 
+def get_gcp_creds():
+    with open("sidekik.json", "r") as file:
+        return file.read()
+
+
 def _action_send_secrets(s):
     s.send(str.encode(json.dumps({
         "action": ACTION_SEND_SECRETS,
         "secrets": {
             "dot_env": {
-                "OPEN_AI_API_KEY": "sk-abc"
+                "OPEN_AI_API_KEY": settings.OPEN_AI_API_KEY,
+                "SERPER_API_KEY": settings.SERPER_API_KEY,
+                "WEB3_RPC_URL": settings.WEB3_RPC_URL
             },
-            "gcp_creds_json": '{"abc": "def"}'
+            "gcp_creds_json": get_gcp_creds()
         }
     })))
     response = s.recv(65536)

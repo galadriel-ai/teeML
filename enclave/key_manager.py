@@ -1,3 +1,5 @@
+from typing import Dict
+
 from eth_account import Account
 from web3 import Web3
 
@@ -33,6 +35,19 @@ def _get_key() -> str:
 def _save_key(account: Account):
     with open(KEY_PATH, "w") as file:
         file.write(w3.to_hex(account.key))
+
+
+def save_dot_env(dot_env: Dict):
+    print("saving dot env:", dot_env)
+    with open(".env", "w") as file:
+        for key, value in dot_env.items():
+            file.write(key + '="' + value + '"\n')
+
+
+def save_gcp(gcp_creds_json):
+    print("save_gcp:", gcp_creds_json)
+    with open("sidekik.json", "w") as file:
+        file.write(gcp_creds_json)
 
 
 if __name__ == '__main__':

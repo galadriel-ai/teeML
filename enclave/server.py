@@ -3,6 +3,7 @@ import json
 import base64
 
 from NsmUtil import NSMUtil
+import key_manager
 
 
 def main():
@@ -51,9 +52,9 @@ def main():
             secrets = request["secrets"]
             print("secrets:", secrets)
             dot_env = secrets["dot_env"]
-            print("dot_env:", dot_env)
+            key_manager.save_dot_env(dot_env)
             gcp_creds_json = secrets["gcp_creds_json"]
-            print("gcp_creds_json:", gcp_creds_json)
+            key_manager.save_gcp(gcp_creds_json)
             response = json.dumps({
                 "result": "OK"
             })

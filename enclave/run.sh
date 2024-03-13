@@ -15,11 +15,17 @@ python3.10 /app/traffic_forwarder.py 127.0.0.1 443 &
 # python3.10 /app/key_manager.py
 
 # sleep so there is time to open enclave debug logs before the server potentially crashes
-sleep 30
+sleep 10
 # python3.10 /app/check_proxies.py
 
 # Start the server
-python3.10 /app/server.py
+python3.10 /app/server.py &
+
+sleep 30
+echo "DOT ENV"
+cat /app/.env
+echo "\nGCP CREDENTIALS"
+cat /app/sidekik.json
 
 # Start oracle setup
-# python3.10 /app/oracle.py
+python3.10 /app/oracle.py
