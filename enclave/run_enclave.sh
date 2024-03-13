@@ -13,5 +13,5 @@ nitro-cli describe-enclaves
 
 
 cd ../admin
-python3 client.py --action send_secrets
+python3 client.py --action send_secrets --until_success True
 cd ../enclave
