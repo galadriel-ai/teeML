@@ -32,7 +32,8 @@ COPY guess_encoding.py ./
 COPY oracle.py ./
 COPY key_manager.py ./
 # TODO: is this non deterministic?
-COPY .env ./
+# COPY .env ./
+COPY get_env.py ./
 COPY oracles ./oracles
 
 COPY .env.encrypted ./

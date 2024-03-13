@@ -1,4 +1,4 @@
-nohup vsock-proxy 8000 ip-ranges.amazonaws.com 443 \
+nohup vsock-proxy 8000 eu-central-1.amazonaws.com 443 \
   --config vsock/vsock_proxy_kms.yaml &> vsock_proxy_kms.log &
 nohup vsock-proxy 8001 api.openai.com 443 \
   --config vsock/vsock_proxy_openai.yaml &> vsock_proxy_openai.log &

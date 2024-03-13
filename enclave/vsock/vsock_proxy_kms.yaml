@@ -1,2 +1,2 @@
 allowlist:
-  - { address: ip-ranges.amazonaws.com, port: 443 }
+  - { address: eu-central-1.amazonaws.com, port: 443 }
