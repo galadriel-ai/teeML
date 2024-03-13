@@ -1,6 +1,7 @@
 import socket
 import json
 import argparse
+import subprocess
 
 ATTESTATION_OUTPUT = "attestation_doc_b64.txt"
 
@@ -63,7 +64,20 @@ def _action_send_secrets(s):
     print("Send secrets response:", response.decode())
 
 
+def _get_cid():
+    """
+    Determine CID of Current Enclave
+    """
+    proc = subprocess.Popen(["/bin/nitro-cli", "describe-enclaves"],
+                            stdout=subprocess.PIPE)
+    output = json.loads(proc.communicate()[0].decode())
+    enclave_cid = output[0]["EnclaveCID"]
+    return enclave_cid
+
+
 def main(cid: str, action: str, message: str = None):
+    if not cid:
+        cid = _get_cid()
     # Create a vsock socket object
     s = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
     s.settimeout(100.0)
@@ -90,7 +104,6 @@ if __name__ == '__main__':
     parser.add_argument(
         "--cid",
         type=int,
-        required=True,
         help="an EnclaveCID to connect to"
     )
     parser.add_argument(
