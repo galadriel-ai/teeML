@@ -35,7 +35,7 @@ def _get_key() -> str:
 
 
 def _save_key(account: Account):
-    with open(".env", "a") as file:
+    with open("/app/.env", "a") as file:
         file.write('\nPRIVATE_KEY="' + w3.to_hex(account.key) + '"')
 
 
