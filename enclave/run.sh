@@ -13,13 +13,12 @@ echo "127.0.0.1   testnet.galadriel.com" >> /etc/hosts
 python3.10 /app/traffic_forwarder.py 127.0.0.1 443 &
 
 # sleep so there is time to open enclave debug logs before the server potentially crashes
-sleep 10
 # python3.10 /app/check_proxies.py
 
 # Start the server
 python3.10 /app/server.py &
 
-sleep 30
+sleep 20
 python3.10 /app/key_manager.py
 
 # TODO: remove these for production!
@@ -33,4 +32,4 @@ cd /app && python3.10 oracle_ping_for_funds.py
 
 # Start oracle setup
 echo "Starting the oracle!"
-tail -f /dev/null
+cd /app/oracles && python3.10 oracle.py
