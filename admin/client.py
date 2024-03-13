@@ -136,7 +136,8 @@ if __name__ == '__main__':
     parser.add_argument(
         "--until_success",
         type=bool,
-        help="retries until success"
+        help="retries until success",
+        default=False
     )
 
     args = parser.parse_args()
