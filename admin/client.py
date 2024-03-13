@@ -101,6 +101,8 @@ def main(cid: str, action: str, message: str = None, until_success: bool = False
         s.close()
     except Exception as exc:
         print("Failed to connect, exc:", exc)
+        if not until_success:
+            return
         print("Retrying in 3 sec...")
         time.sleep(3)
 
