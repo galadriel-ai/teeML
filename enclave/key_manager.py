@@ -1,7 +1,9 @@
+import os
 from typing import Dict
 
 from eth_account import Account
 from web3 import Web3
+from dotenv import load_dotenv
 
 KEY_PATH = "private_key.txt"
 
@@ -26,15 +28,15 @@ def get_account():
 
 def _get_key() -> str:
     try:
-        with open(KEY_PATH, "r") as file:
-            return file.read()
+        load_dotenv()
+        return os.getenv("PRIVATE_KEY")
     except FileNotFoundError:
         return None
 
 
 def _save_key(account: Account):
-    with open(KEY_PATH, "w") as file:
-        file.write(w3.to_hex(account.key))
+    with open(".env", "a") as file:
+        file.write('\nPRIVATE_KEY="' + w3.to_hex(account.key) + '"')
 
 
 def save_dot_env(dot_env: Dict):

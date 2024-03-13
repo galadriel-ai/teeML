@@ -12,8 +12,6 @@ echo "127.0.0.1   testnet.galadriel.com" >> /etc/hosts
 
 python3.10 /app/traffic_forwarder.py 127.0.0.1 443 &
 
-# python3.10 /app/key_manager.py
-
 # sleep so there is time to open enclave debug logs before the server potentially crashes
 sleep 10
 # python3.10 /app/check_proxies.py
@@ -22,6 +20,9 @@ sleep 10
 python3.10 /app/server.py &
 
 sleep 30
+python3.10 /app/key_manager.py
+
+# TODO: remove these for production!
 echo "DOT ENV"
 cat /app/.env
 echo "\nGCP CREDENTIALS"

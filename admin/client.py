@@ -65,7 +65,11 @@ def _action_send_secrets(s):
             "dot_env": {
                 "OPEN_AI_API_KEY": settings.OPEN_AI_API_KEY,
                 "SERPER_API_KEY": settings.SERPER_API_KEY,
-                "WEB3_RPC_URL": settings.WEB3_RPC_URL
+                "CHAIN_ID": settings.CHAIN_ID,
+                "WEB3_RPC_URL": settings.WEB3_RPC_URL,
+                "ORACLE_ADDRESS": settings.ORACLE_ADDRESS,
+                "ORACLE_ABI_PATH": "/app/ChatOracle.json",
+
             },
             "gcp_creds_json": get_gcp_creds()
         }
