@@ -1,2 +1,2 @@
 allowlist:
-  - { address: eu-central-1.amazonaws.com, port: 443 }
+  - { address: secretsmanager.eu-central-1.amazonaws.com, port: 443 }
