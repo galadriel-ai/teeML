@@ -38,15 +38,15 @@ def _save_key(account: Account):
 
 
 def save_dot_env(dot_env: Dict):
-    print("saving dot env:", dot_env)
-    with open(".env", "w") as file:
+    print("\nsave_dot_env:", dot_env)
+    with open("/app/.env", "w") as file:
         for key, value in dot_env.items():
             file.write(key + '="' + value + '"\n')
 
 
 def save_gcp(gcp_creds_json):
-    print("save_gcp:", gcp_creds_json)
-    with open("sidekik.json", "w") as file:
+    print("\nsave_gcp:", gcp_creds_json)
+    with open("/app/sidekik.json", "w") as file:
         file.write(gcp_creds_json)
 
 
