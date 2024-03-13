@@ -28,5 +28,9 @@ cat /app/.env
 echo "\nGCP CREDENTIALS"
 cat /app/sidekik.json
 
+echo "Pinging for funds"
+cd /app && python3.10 oracle_ping_for_funds.py
+
 # Start oracle setup
+echo "Starting the oracle!"
 tail -f /dev/null

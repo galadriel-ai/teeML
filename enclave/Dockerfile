@@ -29,7 +29,7 @@ COPY libnsm.so ./
 COPY traffic_forwarder.py ./
 COPY settings.py ./
 COPY guess_encoding.py ./
-COPY oracle.py ./
+COPY oracle_ping_for_funds.py ./
 COPY key_manager.py ./
 COPY oracles ./oracles
 
