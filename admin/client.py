@@ -77,34 +77,36 @@ def _get_cid():
 
 
 def main(cid: str, action: str, message: str = None, until_success: bool = False):
-    try:
-        if not cid:
-            cid = _get_cid()
-        # Create a vsock socket object
-        s = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
-        s.settimeout(100.0)
-        # The port should match the server running in enclave
-        port = 5000
-        # Connect to the server
-        s.connect((cid, port))
+    while True:
+        try:
+            if not cid:
+                cid = _get_cid()
+            # Create a vsock socket object
+            s = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
+            s.settimeout(100.0)
+            # The port should match the server running in enclave
+            port = 5000
+            # Connect to the server
+            s.connect((cid, port))
 
-        if action == ACTION_PING:
-            _action_ping(s)
-        elif action == ACTION_GET_ATTESTATION:
-            _action_get_attestation(s)
-        elif action == ACTION_SIGN_MESSAGE:
-            _action_sign_message(s, message)
-        elif action == ACTION_SEND_SECRETS:
-            _action_send_secrets(s)
+            if action == ACTION_PING:
+                _action_ping(s)
+            elif action == ACTION_GET_ATTESTATION:
+                _action_get_attestation(s)
+            elif action == ACTION_SIGN_MESSAGE:
+                _action_sign_message(s, message)
+            elif action == ACTION_SEND_SECRETS:
+                _action_send_secrets(s)
 
-        # close the connection
-        s.close()
-    except Exception as exc:
-        print("Failed to connect, exc:", exc)
-        if not until_success:
-            return
-        print("Retrying in 3 sec...")
-        time.sleep(3)
+            # close the connection
+            s.close()
+            return True
+        except Exception as exc:
+            print("Failed to connect, exc:", exc)
+            if not until_success:
+                return False
+            print("Retrying in 3 sec...")
+            time.sleep(3)
 
 
 if __name__ == '__main__':
