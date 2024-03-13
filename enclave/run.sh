@@ -12,9 +12,6 @@ echo "127.0.0.1   testnet.galadriel.com" >> /etc/hosts
 
 python3.10 /app/traffic_forwarder.py 127.0.0.1 443 &
 
-# Decrypt the .env file
-python3.10 /app/get_env.py
-
 # python3.10 /app/key_manager.py
 
 # sleep so there is time to open enclave debug logs before the server potentially crashes

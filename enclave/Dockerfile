@@ -31,13 +31,7 @@ COPY settings.py ./
 COPY guess_encoding.py ./
 COPY oracle.py ./
 COPY key_manager.py ./
-# TODO: is this non deterministic?
-# COPY .env ./
-COPY get_env.py ./
 COPY oracles ./oracles
-
-COPY .env.encrypted ./
-COPY sidekik-ai.json.encrypted ./
 
 # TODO: debug only
 COPY proxy_checks ./proxy_checks/
