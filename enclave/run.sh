@@ -28,4 +28,4 @@ echo "\nGCP CREDENTIALS"
 cat /app/sidekik.json
 
 # Start oracle setup
-python3.10 /app/oracle.py
+tail -f /dev/null
