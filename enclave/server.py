@@ -47,6 +47,17 @@ def main():
                 "attestation_doc_b64": attestation_doc_b64
             })
             client_connection.send(str.encode(attestation_doc_response))
+        elif request["action"] == "send_secrets":
+            secrets = request["secrets"]
+            print("secrets:", secrets)
+            dot_env = secrets["dot_env"]
+            print("dot_env:", dot_env)
+            gcp_creds_json = secrets["gcp_creds_json"]
+            print("gcp_creds_json:", gcp_creds_json)
+            response = json.dumps({
+                "result": "OK"
+            })
+            client_connection.send(str.encode(response))
         elif request["action"] == "sign_message":
             try:
                 message = request["message"]

@@ -1,4 +1,3 @@
-import sys
 import socket
 import json
 import argparse
@@ -8,6 +7,7 @@ ATTESTATION_OUTPUT = "attestation_doc_b64.txt"
 ACTION_PING = "ping"
 ACTION_GET_ATTESTATION = "get_attestation_doc"
 ACTION_SIGN_MESSAGE = "sign_message"
+ACTION_SEND_SECRETS = "send_secrets"
 
 
 def save_attestation_b64(attestation_b64):
@@ -49,6 +49,20 @@ def _action_sign_message(s, message):
     print("signature_b64:", signature_b64)
 
 
+def _action_send_secrets(s):
+    s.send(str.encode(json.dumps({
+        "action": ACTION_SEND_SECRETS,
+        "secrets": {
+            "dot_env": {
+                "OPEN_AI_API_KEY": "sk-abc"
+            },
+            "gcp_creds_json": '{"abc": "def"}'
+        }
+    })))
+    response = s.recv(65536)
+    print("Send secrets response:", response.decode())
+
+
 def main(cid: str, action: str, message: str = None):
     # Create a vsock socket object
     s = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
@@ -64,6 +78,8 @@ def main(cid: str, action: str, message: str = None):
         _action_get_attestation(s)
     elif action == ACTION_SIGN_MESSAGE:
         _action_sign_message(s, message)
+    elif action == ACTION_SEND_SECRETS:
+        _action_send_secrets(s)
 
     # close the connection
     s.close()
@@ -81,7 +97,12 @@ if __name__ == '__main__':
         '--action',
         type=str,
         default=ACTION_PING,
-        choices=[ACTION_PING, ACTION_GET_ATTESTATION, ACTION_SIGN_MESSAGE],
+        choices=[
+            ACTION_PING,
+            ACTION_GET_ATTESTATION,
+            ACTION_SIGN_MESSAGE,
+            ACTION_SEND_SECRETS
+        ],
         help="action to run"
     )
     parser.add_argument(
