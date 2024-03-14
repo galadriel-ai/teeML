@@ -11,6 +11,7 @@ echo "127.0.0.1   google.serper.dev" >> /etc/hosts
 echo "127.0.0.1   testnet.galadriel.com" >> /etc/hosts
 echo "127.0.0.1   oaidalleapiprodscus.blob.core.windows.net" >> /etc/hosts
 echo "127.0.0.1   storage.googleapis.com" >> /etc/hosts
+echo "127.0.0.1   oauth2.googleapis.com" >> /etc/hosts
 
 python3.10 /app/traffic_forwarder.py 127.0.0.1 443 &
 

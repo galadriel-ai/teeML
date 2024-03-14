@@ -8,3 +8,5 @@ nohup vsock-proxy 8004 oaidalleapiprodscus.blob.core.windows.net 443 \
   --config vsock/vsock_proxy_windows.yaml &> vsock_proxy_windows.log &
 nohup vsock-proxy 8005 storage.googleapis.com 443 \
   --config vsock/vsock_proxy_google_storage.yaml &> vsock_proxy_google_storage.log &
+nohup vsock-proxy 8006 oauth2.googleapis.com 443 \
+  --config vsock/vsock_proxy_google_oauth2.yaml &> vsock_proxy_google_oauth2.log &
