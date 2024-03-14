@@ -1,0 +1,2 @@
+allowlist:
+  - { address: storage.googleapis.com, port: 443 }

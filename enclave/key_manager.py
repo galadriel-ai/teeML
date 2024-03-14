@@ -1,5 +1,9 @@
+import os
+from typing import Dict
+
 from eth_account import Account
 from web3 import Web3
+from dotenv import load_dotenv
 
 KEY_PATH = "private_key.txt"
 
@@ -24,15 +28,28 @@ def get_account():
 
 def _get_key() -> str:
     try:
-        with open(KEY_PATH, "r") as file:
-            return file.read()
+        load_dotenv()
+        return os.getenv("PRIVATE_KEY")
     except FileNotFoundError:
         return None
 
 
 def _save_key(account: Account):
-    with open(KEY_PATH, "w") as file:
-        file.write(w3.to_hex(account.key))
+    with open("/app/.env", "a") as file:
+        file.write('\nPRIVATE_KEY="' + w3.to_hex(account.key) + '"')
+
+
+def save_dot_env(dot_env: Dict):
+    print("\nsave_dot_env:", dot_env)
+    with open("/app/.env", "w") as file:
+        for key, value in dot_env.items():
+            file.write(key + '="' + value + '"\n')
+
+
+def save_gcp(gcp_creds_json):
+    print("\nsave_gcp:", gcp_creds_json)
+    with open("/app/sidekik.json", "w") as file:
+        file.write(gcp_creds_json)
 
 
 if __name__ == '__main__':

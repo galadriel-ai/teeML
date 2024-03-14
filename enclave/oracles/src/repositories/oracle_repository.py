@@ -64,7 +64,7 @@ class OracleRepository:
         ]
         return unanswered_chats
 
-    async def send_chat_response(self, chat: Chat, response: str) -> bool:
+    async def send_chat_response(self, chat: Chat) -> bool:
         nonce = await self.web3_client.eth.get_transaction_count(self.account.address)
         tx_data = {
             "from": self.account.address,
@@ -76,12 +76,17 @@ class OracleRepository:
         }
         if chain_id := settings.CHAIN_ID:
             tx_data["chainId"] = int(chain_id)
-        tx = await self.oracle_contract.functions.addResponse(
-            chat.id,
-            chat.callback_id,
-            response,
-            "assistant",
-        ).build_transaction(tx_data)
+        try:
+            tx = await self.oracle_contract.functions.addResponse(
+                chat.id,
+                chat.callback_id,
+                chat.response,
+                chat.error_message,
+            ).build_transaction(tx_data)
+        except Exception as e:
+            chat.is_processed = True
+            chat.transaction_receipt = {"error": str(e)}
+            return False
         signed_tx = self.web3_client.eth.account.sign_transaction(
             tx, private_key=self.account.key
         )
@@ -89,6 +94,7 @@ class OracleRepository:
             signed_tx.rawTransaction
         )
         tx_receipt = await self.web3_client.eth.wait_for_transaction_receipt(tx_hash)
+        chat.transaction_receipt = tx_receipt
         chat.is_processed = bool(tx_receipt.get("status"))
         return bool(tx_receipt.get("status"))
 
@@ -134,7 +140,7 @@ class OracleRepository:
         return unanswered_function_calls
 
     async def send_function_call_response(
-        self, function_call: FunctionCall, response: str
+        self, function_call: FunctionCall, response: str, error_message: str = ""
     ) -> bool:
         nonce = await self.web3_client.eth.get_transaction_count(self.account.address)
         tx_data = {
@@ -147,12 +153,17 @@ class OracleRepository:
         }
         if chain_id := settings.CHAIN_ID:
             tx_data["chainId"] = int(chain_id)
-        tx = await self.oracle_contract.functions.addFunctionResponse(
-            function_call.id,
-            function_call.callback_id,
-            response,
-            "function_result",
-        ).build_transaction(tx_data)
+        try:
+            tx = await self.oracle_contract.functions.addFunctionResponse(
+                function_call.id,
+                function_call.callback_id,
+                response,
+                error_message,
+            ).build_transaction(tx_data)
+        except Exception as e:
+            function_call.is_processed = True
+            function_call.transaction_receipt = {"error": str(e)}
+            return False
         signed_tx = self.web3_client.eth.account.sign_transaction(
             tx, private_key=self.account.key
         )
@@ -160,5 +171,6 @@ class OracleRepository:
             signed_tx.rawTransaction
         )
         tx_receipt = await self.web3_client.eth.wait_for_transaction_receipt(tx_hash)
+        function_call.transaction_receipt = tx_receipt
         function_call.is_processed = bool(tx_receipt.get("status"))
         return bool(tx_receipt.get("status"))

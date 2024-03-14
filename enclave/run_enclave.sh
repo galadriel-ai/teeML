@@ -10,3 +10,8 @@ rm galadriel.eif
 nitro-cli build-enclave --docker-uri "galadriel:latest" --output-file "galadriel.eif"
 nitro-cli run-enclave --cpu-count 2 --memory 15000 --eif-path galadriel.eif --debug-mode
 nitro-cli describe-enclaves
+
+
+cd ../admin
+python3 client.py --action send_secrets --until_success True
+cd ../enclave

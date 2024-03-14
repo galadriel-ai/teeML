@@ -11,12 +11,14 @@ Admin is responsible for:
 Flow:
 
 ```shell
+python3 client.py --action send_secrets
+
 # Request attestation doc from the enclave
-python client.py --cid <enclave cid> --action get_attestation_doc
+python3 client.py --action get_attestation_doc
 # Verify the attestation doc
-python verify.py <pcr0 of the enclave> 
+python3 verify.py <pcr0 of the enclave> 
 # Publish the enclave public key and attestation doc to the Oracle Contract
-python sui_publish_attestation.py
+python3 sui_publish_attestation.py
 ```
 
 ## Extra

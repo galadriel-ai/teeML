@@ -6,16 +6,18 @@ import time
 BUFFER_SIZE = 1024
 
 REMOTE_CID = 3
-REMOTE_PORT_KMS = 8000
 REMOTE_PORT_OPENAI = 8001
 REMOTE_PORT_SERPER = 8002
 REMOTE_PORT_GALADRIEL = 8003
+REMOTE_PORT_WINDOWS = 8004
+REMOTE_PORT_GOOGLE_STORAGE = 8005
 
 REMOTE_PORTS = {
-    "ip-ranges.amazonaws.com": REMOTE_PORT_KMS,
     "api.openai.com": REMOTE_PORT_OPENAI,
     "google.serper.dev": REMOTE_PORT_SERPER,
     "testnet.galadriel.com": REMOTE_PORT_GALADRIEL,
+    "oaidalleapiprodscus.blob.core.windows.net": REMOTE_PORT_WINDOWS,
+    "storage.googleapis.com": REMOTE_PORT_GOOGLE_STORAGE,
 }
 
 
@@ -29,7 +31,7 @@ def guess_the_destination_port(data: bytes) -> int:
             return port
     # TODO: what if no destination?
     print("Error, did not get a destination port!\n")
-    return REMOTE_PORT_KMS
+    return REMOTE_PORT_OPENAI
 
 
 def server(local_ip, local_port):

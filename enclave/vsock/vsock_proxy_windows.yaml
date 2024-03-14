@@ -1,0 +1,2 @@
+allowlist:
+  - { address: oaidalleapiprodscus.blob.core.windows.net, port: 443 }

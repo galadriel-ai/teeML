@@ -29,14 +29,9 @@ COPY libnsm.so ./
 COPY traffic_forwarder.py ./
 COPY settings.py ./
 COPY guess_encoding.py ./
-COPY oracle.py ./
+COPY oracle_ping_for_funds.py ./
 COPY key_manager.py ./
-# TODO: is this non deterministic?
-COPY .env ./
 COPY oracles ./oracles
-
-COPY .env.encrypted ./
-COPY sidekik-ai.json.encrypted ./
 
 # TODO: debug only
 COPY proxy_checks ./proxy_checks/
