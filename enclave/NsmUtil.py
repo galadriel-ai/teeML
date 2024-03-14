@@ -11,34 +11,26 @@ from Crypto.Cipher import PKCS1_OAEP
 from Crypto.Signature import pkcs1_15
 from Crypto.Hash import SHA256
 
-from pysui import SuiConfig
-from pysui import SyncClient
-from pysui.abstracts import PublicKey
+import key_manager
 
 print("importing libnsm")
 import libnsm
-
-print("initialising sui config")
-sui_config = SuiConfig.default_config()
-print("initialising sui client")
-sui_client = SyncClient(sui_config)
-print("\nSUI Initialised!!\n")
 
 
 @dataclass(frozen=True)
 class AliasInfo:
     alias: str
     address: str
-    public_key: PublicKey
+    public_key: str
 
 
 def get_alias_info() -> Optional[AliasInfo]:
-    for alias in sui_config.aliases:
-        return AliasInfo(
-            alias=alias,
-            address=str(sui_config.addr4al(alias)),
-            public_key=sui_config.pk4al(alias)
-        )
+    account = key_manager.get_account()
+    return AliasInfo(
+        alias="Oracle",
+        address=account.address,
+        public_key=account.address
+    )
 
 
 class NSMUtil():
@@ -63,8 +55,8 @@ class NSMUtil():
         # Generate a new RSA certificate, which will be used to
         # generate the Attestation document and to decrypt results
         # for KMS Decrypt calls with this document.
-        #self._rsa_key = RSA.generate(2048)
-        #self._public_key = self._rsa_key.publickey().export_key('DER')
+        # self._rsa_key = RSA.generate(2048)
+        # self._public_key = self._rsa_key.publickey().export_key('DER')
         # self._alias_info = get_alias_info()
         # self._public_key = self._alias_info.address
         # print("Got public key:", self._public_key)

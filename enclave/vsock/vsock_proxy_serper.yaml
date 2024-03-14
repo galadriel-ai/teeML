@@ -1,2 +1,2 @@
 allowlist:
-- {address: google.serper.dev, port: 443}
+  - { address: google.serper.dev, port: 443 }

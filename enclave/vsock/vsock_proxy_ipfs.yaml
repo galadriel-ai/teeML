@@ -1,2 +1,0 @@
-allowlist:
-- {address: ipfs.io, port: 443}
