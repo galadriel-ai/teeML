@@ -17,8 +17,6 @@ python3 client.py --action send_secrets
 python3 client.py --action get_attestation_doc
 # Verify the attestation doc
 python3 verify.py <pcr0 of the enclave> 
-# Publish the enclave public key and attestation doc to the Oracle Contract
-python3 sui_publish_attestation.py
 ```
 
 ## Extra

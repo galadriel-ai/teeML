@@ -61,17 +61,16 @@ class NSMUtil():
         # self._public_key = self._alias_info.address
         # print("Got public key:", self._public_key)
 
-        self._alias_info = get_alias_info()
-        print("\nAliasInfo:", self._alias_info, "\n")
-        self._public_key = bytes.fromhex(self._alias_info.address[2:])
-
     def get_attestation_doc(self):
         """Get the attestation document from /dev/nsm."""
+        account = key_manager.get_account()
+        public_key = account.address
+
         libnsm_att_doc_cose_signed = libnsm.nsm_get_attestation_doc(
             # pylint:disable=c-extension-no-member
             self._nsm_fd,
-            self._public_key,
-            len(self._public_key)
+            public_key,
+            len(public_key)
         )
         return libnsm_att_doc_cose_signed
 
