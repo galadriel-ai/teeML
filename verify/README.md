@@ -58,10 +58,12 @@ python3 -m pip install --upgrade pyOpenSSL
 
 ### 3. Verify attestation
 
-Attestation file is saved in attestation_doc_b64.txt. You can also download this
-from the blockchain from the Oracle contract or execute the `python3 get_attestation.py`.
+Optionally, you can download the attestation directly from blockchain with
+`python3 get_attestation.py` and verify it is the same as 
+`attestation_doc_b64.txt` in this repo.
 
-Optionally, you can download the root.pem from Amazon: https://aws-nitro-enclaves.amazonaws.com/AWS_NitroEnclaves_Root-G1.zip
+Optionally, you can download the root.pem from Amazon and verify it is the same 
+as the `root.pem` in this repo: https://aws-nitro-enclaves.amazonaws.com/AWS_NitroEnclaves_Root-G1.zip
 
 ```shell
 # The argument is the PCR0 from the enclave image build step.
