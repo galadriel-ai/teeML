@@ -8,8 +8,8 @@ Currently supports calling:
 
 This project is divided into 3 parts:
 1. enclave - this where the enclave is built and run
-2. admin - this is where the admin can verify the enclave's attestation doc and 
-publish the attestation files to the chain
+2. admin - this is where the admin can interact with the encalve and verify 
+attestation doc
 3. verify - minimal version of the admin to only validate the enclave's 
 attestation doc
 
