@@ -1,6 +1,10 @@
 # teeML
 
-teeML is a Trusted Execution Environment (TEE) based AI inference.
+teeML: Trusted Execution Environment for Machine Learning. It's purpose is to 
+enable the querying of any of the LLM APIs, both for open and closed-source 
+models, in a low latency, low cost, and verifiable manner.
+
+High level overview described in [docs.galadriel.com](https://docs.galadriel.com/how-it-works#tee)
 
 Currently supports calling:
 * openai gpt models
