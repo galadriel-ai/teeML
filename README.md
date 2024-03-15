@@ -22,7 +22,6 @@ see this [README](./verify/README.md)
 * recommended to go through tutorials first before running...
     * https://catalog.workshops.aws/nitro-enclaves/en-US/0-getting-started/prerequisites
     * https://catalog.workshops.aws/nitro-enclaves/en-US/1-my-first-enclave/1-1-nitro-enclaves-cli
-    * https://www.notion.so/nftport/TEE-b4069289b4bd49ae810010eceaece2d6
     * https://docs.aws.amazon.com/enclaves/latest/user/verify-root.html
 
 ### Create and run an AWS Nitro Enclave
