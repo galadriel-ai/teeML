@@ -107,11 +107,11 @@ def _print_cert_expired_msg(cert):
     valid_until_der = cert.not_valid_after_utc
     print(f"\nCertificate was valid from: {valid_from_der} until {valid_until_der}")
     print("The AWS enclave attestation certification is valid only for 3 hours from issuing.")
-    print("For this reason, when verifying an attestation that is more than 3 hours old, you have to consider.")
+    print("For this reason, when verifying an attestation that is more than 3 hours old, you have to consider ")
     print("that the only reason for an invalid attestation is the certificate expiry.")
     print("The attestation document's validity does not depend on whether the certificate is expired or not,")
     print(" as long as the certificate was valid at the time of the attestation document creation.")
-    
+
 def encrypt(attestation_doc, plaintext):
     """
     Encrypt message using public key in attestation document
