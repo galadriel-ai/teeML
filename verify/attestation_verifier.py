@@ -1,7 +1,7 @@
+import OpenSSL
 import cbor2
 import cose
 import base64
-import json
 
 from cose import EC2, CoseAlgorithms, CoseEllipticCurves
 from Crypto.Util.number import long_to_bytes
@@ -12,6 +12,7 @@ from Crypto.PublicKey import RSA
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
+from cryptography.x509 import load_der_x509_certificate
 
 
 def verify_attestation_doc(attestation_doc, pcrs=[], root_cert_pem=None):
@@ -90,9 +91,24 @@ def verify_attestation_doc(attestation_doc, pcrs=[], root_cert_pem=None):
 
         # Validate the certificate
         # If the cert is invalid, it will raise exception
-        store_ctx.verify_certificate()
+        try:
+            store_ctx.verify_certificate()
+        except OpenSSL.crypto.X509StoreContextError as exc:
+            if str(exc) == "certificate has expired":
+                cert = load_der_x509_certificate(doc_obj['certificate'], default_backend())
+                _print_cert_expired_msg(cert)
+            else:
+                raise exc
     return
 
+
+def _print_cert_expired_msg(cert):
+    valid_from_der = cert.not_valid_before_utc
+    valid_until_der = cert.not_valid_after_utc
+    print(f"\nCertificate was valid from: {valid_from_der} until {valid_until_der}")
+    print("The aws enclave attestation cert validity time is just 3 hours!")
+    print("However, the certificate can still be trusted as everything else is still "
+          "valid!\n")
 
 def encrypt(attestation_doc, plaintext):
     """
