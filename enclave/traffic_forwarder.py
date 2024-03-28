@@ -12,6 +12,7 @@ REMOTE_PORT_GALADRIEL = 8003
 REMOTE_PORT_WINDOWS = 8004
 REMOTE_PORT_GOOGLE_STORAGE = 8005
 REMOTE_PORT_GOOGLE_OAUTH2 = 8006
+REMOTE_PORT_BEARLY = 8007
 
 REMOTE_PORTS = {
     "api.openai.com": REMOTE_PORT_OPENAI,
@@ -20,6 +21,7 @@ REMOTE_PORTS = {
     "oaidalleapiprodscus.blob.core.windows.net": REMOTE_PORT_WINDOWS,
     "storage.googleapis.com": REMOTE_PORT_GOOGLE_STORAGE,
     "oauth2.googleapis.com": REMOTE_PORT_GOOGLE_OAUTH2,
+    "exec.bearly.ai": REMOTE_PORT_BEARLY,
 }
 
 

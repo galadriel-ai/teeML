@@ -1,0 +1,2 @@
+allowlist:
+  - { address: exec.bearly.ai, port: 443 }
