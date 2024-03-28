@@ -28,6 +28,9 @@ cp /app/.env /app/oracles/.env
 echo "Pinging for funds"
 cd /app && python3.10 oracle_ping_for_funds.py
 
+# Starting the attestation upgrader
+cd /app/oracles && python3.10 update_attestation.py &> /app/oracles/attestation_upgrader.log &
+
 # Start oracle setup
 echo "Starting the oracle!"
 cd /app/oracles && python3.10 oracle.py
