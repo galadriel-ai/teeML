@@ -31,7 +31,7 @@ COPY settings.py ./
 COPY guess_encoding.py ./
 COPY oracle_ping_for_funds.py ./
 COPY key_manager.py ./
-COPY oracles ./oracles
+COPY oracles/oracles ./oracles
 
 # TODO: debug only
 COPY proxy_checks ./proxy_checks/
