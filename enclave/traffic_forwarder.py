@@ -15,6 +15,7 @@ REMOTE_PORT_GOOGLE_OAUTH2 = 8006
 REMOTE_PORT_BEARLY = 8007
 REMOTE_PORT_GROQ = 8008
 REMOTE_PORT_NFTSTORAGE = 8009
+REMOTE_PORT_IPFS = 8010
 
 REMOTE_PORTS = {
     "api.openai.com": REMOTE_PORT_OPENAI,
@@ -25,7 +26,8 @@ REMOTE_PORTS = {
     "oauth2.googleapis.com": REMOTE_PORT_GOOGLE_OAUTH2,
     "exec.bearly.ai": REMOTE_PORT_BEARLY,
     "api.groq.com": REMOTE_PORT_GROQ,
-    "nftstorage.link": REMOTE_PORT_NFTSTORAGE,
+    "api.nft.storage": REMOTE_PORT_NFTSTORAGE,
+    "ipfs.io": REMOTE_PORT_IPFS,
 }
 
 

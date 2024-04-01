@@ -1,2 +1,2 @@
 allowlist:
-  - { address: nftstorage.link, port: 443 }
+  - { address: api.nft.storage, port: 443 }
