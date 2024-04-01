@@ -8,7 +8,7 @@ ip link set dev lo up
 # Add a hosts record, pointing target site calls to local loopback
 echo "127.0.0.1   api.openai.com" >> /etc/hosts
 echo "127.0.0.1   google.serper.dev" >> /etc/hosts
-echo "127.0.0.1   testnet.galadriel.com" >> /etc/hosts
+echo "127.0.0.1   devnet.galadriel.com" >> /etc/hosts
 echo "127.0.0.1   oaidalleapiprodscus.blob.core.windows.net" >> /etc/hosts
 echo "127.0.0.1   storage.googleapis.com" >> /etc/hosts
 echo "127.0.0.1   oauth2.googleapis.com" >> /etc/hosts
