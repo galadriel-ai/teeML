@@ -29,7 +29,7 @@ def get_dot_env() -> Dict:
         "CHAIN_ID": CHAIN_ID,
         "WEB3_RPC_URL": WEB3_RPC_URL,
         "ORACLE_ADDRESS": ORACLE_ADDRESS,
-        "ORACLE_ABI_PATH": "/app/oracles/ChatOracle.json",
+        "ORACLE_ABI_PATH": "/app/oracles/abi/ChatOracle.json",
         "GCS_BUCKET_NAME": GCS_BUCKET_NAME,
         "BEARLY_API_KEY": BEARLY_API_KEY,
         "NFT_STORAGE_API_KEY": NFT_STORAGE_API_KEY,
