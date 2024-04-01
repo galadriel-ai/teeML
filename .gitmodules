@@ -1,0 +1,3 @@
+[submodule "enclave/oracles"]
+	path = enclave/oracles
+	url = https://github.com/galadriel-ai/contracts.git
