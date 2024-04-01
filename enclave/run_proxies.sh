@@ -14,3 +14,5 @@ nohup vsock-proxy 8007 exec.bearly.ai 443 \
   --config vsock/vsock_proxy_bearly.yaml &> vsock_proxy_bearly.log &
 nohup vsock-proxy 8008 api.groq.com 443 \
   --config vsock/vsock_proxy_groq.yaml &> vsock_proxy_groq.log &
+nohup vsock-proxy 8009 nftstorage.link 443 \
+  --config vsock/vsock_proxy_nftstorage.yaml &> vsock_proxy_nftstorage.log &
