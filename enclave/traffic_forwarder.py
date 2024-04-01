@@ -18,7 +18,7 @@ REMOTE_PORT_GROQ = 8008
 REMOTE_PORTS = {
     "api.openai.com": REMOTE_PORT_OPENAI,
     "google.serper.dev": REMOTE_PORT_SERPER,
-    "testnet.galadriel.com": REMOTE_PORT_GALADRIEL,
+    "devnet.galadriel.com": REMOTE_PORT_GALADRIEL,
     "oaidalleapiprodscus.blob.core.windows.net": REMOTE_PORT_WINDOWS,
     "storage.googleapis.com": REMOTE_PORT_GOOGLE_STORAGE,
     "oauth2.googleapis.com": REMOTE_PORT_GOOGLE_OAUTH2,
