@@ -16,3 +16,5 @@ nohup vsock-proxy 8008 api.groq.com 443 \
   --config vsock/vsock_proxy_groq.yaml &> vsock_proxy_groq.log &
 nohup vsock-proxy 8009 galadriel.mypinata.cloud 443 \
   --config vsock/vsock_proxy_ipfs.yaml &> vsock_proxy_ipfs.log &
+nohup vsock-proxy 8010 api.pinata.cloud 443 \
+  --config vsock/vsock_proxy_pinata.yaml &> vsock_proxy_pinata.log &

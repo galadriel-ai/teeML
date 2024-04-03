@@ -15,6 +15,7 @@ echo "127.0.0.1   oauth2.googleapis.com" >> /etc/hosts
 echo "127.0.0.1   exec.bearly.ai" >> /etc/hosts
 echo "127.0.0.1   api.groq.com" >> /etc/hosts
 echo "127.0.0.1   galadriel.mypinata.cloud" >> /etc/hosts
+echo "127.0.0.1   api.pinata.cloud" >> /etc/hosts
 
 python3.10 /app/traffic_forwarder.py 127.0.0.1 443 &
 

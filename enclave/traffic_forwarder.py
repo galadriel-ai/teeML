@@ -15,6 +15,7 @@ REMOTE_PORT_GOOGLE_OAUTH2 = 8006
 REMOTE_PORT_BEARLY = 8007
 REMOTE_PORT_GROQ = 8008
 REMOTE_PORT_IPFS = 8009
+REMOTE_PORT_PINATA = 8010
 
 REMOTE_PORTS = {
     "api.openai.com": REMOTE_PORT_OPENAI,
@@ -26,6 +27,7 @@ REMOTE_PORTS = {
     "exec.bearly.ai": REMOTE_PORT_BEARLY,
     "api.groq.com": REMOTE_PORT_GROQ,
     "galadriel.mypinata.cloud": REMOTE_PORT_IPFS,
+    "api.pinata.cloud": REMOTE_PORT_PINATA,
 }
 
 
