@@ -1,2 +1,2 @@
 allowlist:
-  - { address: ipfs.io, port: 443 }
+  - { address: galadriel.mypinata.cloud, port: 443 }
