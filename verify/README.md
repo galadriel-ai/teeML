@@ -2,6 +2,15 @@
 
 This directory contains instructions and code for verifying the oracle running inside the TEE.
 
+Here's a high-level diagram of the steps needed to fully verify the oracle:
+
+![](/verification-diagram.png)
+
+1. Verify that the docker image was converted into the enclave image correctly.
+1. Verify an oracle attestation by pulling it from the chain and checking that it is correctly signed by AWS, and that it corresponds to the enclave image hash.
+
+We explain below how to execute both verification steps below.
+
 ### 0. Prerequisites
 
 System requirements:
@@ -54,14 +63,14 @@ Enclave Image successfully created.
 }
 ```
 
-### 2. Setup Python
+### Setup Python
 
 ```shell
 python3 -m pip install -r requirements.txt
 python3 -m pip install --upgrade pyOpenSSL
 ```
 
-### 3. Verify attestation
+### 2. Verify attestation
 
 Optionally, you can download the attestation directly from blockchain with
 `python3 get_attestation.py` and verify it is the same as
