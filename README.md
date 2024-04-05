@@ -1,39 +1,63 @@
+<p align="center">
+    <a href="https://galadriel.com" style="max-width: 100px;" target="_blank">
+        <img src="Galadriel.svg">
+    </a>
+</p>
+<p align="center">
+    Galadriel - the first Layer 1 for AI.
+</p>
+<p align="center">
+    <a href="https://discord.com/invite/bHnFgSTKrP" target="_blank"><img src="https://img.shields.io/discord/1133675019478782072?label=Join%20Discord"></a><a href="https://twitter.com/e2b_dev" target="_blank"><img src="https://img.shields.io/twitter/follow/Galadriel_AI"></a>
+</p>
+<p align="center">
+    Documentation: <a href="https://docs.galadriel.com" target="_blank">docs.galadriel.com</a>
+</p>
+
 # teeML
 
-teeML: Trusted Execution Environment for Machine Learning Inference. It's 
-purpose is to enable the querying of any of the LLM APIs, both for open and 
-closed-source models, in a low latency, low cost, and verifiable manner.
+teeML: Trusted Execution Environment for Machine Learning Inference.
 
-High level overview described in [docs.galadriel.com](https://docs.galadriel.com/how-it-works#tee)
+The purpose of this repository to enable the querying of model APIs and external tools in a low latency, low cost, and verifiable manner. To do so, it contains everything needed to execute the [Galadriel oracle](https://github.com/galadriel-ai/contracts) in an [AWS Nitro enclave](https://aws.amazon.com/ec2/nitro/nitro-enclaves/), and verify its execution.
 
-Currently supports calling:
-* openai gpt models
-* generating images with DALL-E
+A high level overview is given in [docs.galadriel.com](https://docs.galadriel.com/how-it-works#tee).
 
-This project is divided into 3 parts:
-1. enclave - this where the enclave is built and run
-2. admin - this is where the admin can interact with the encalve and verify 
+### This project
+
+The oracle currently supports calling the following, all of which is also supported by the TEE setup:
+
+* LLMs from OpenAI and Groq
+* Image generation with OpenAI's DALL-E
+* Code execution via Bearly's code interpreter API
+* Web search via Serper API
+
+See details of supported tools in the [oracle reference](https://docs.galadriel.com/reference/overview).
+
+This project is divided into 3 parts in corresponding directories:
+
+1. `enclave` - this where the enclave is built and run
+2. `admin` - this is where the admin can interact with the encalve and verify 
 attestation doc
-3. verify - minimal version of the admin to only validate the enclave's 
+3. `verify` - minimal version of the admin to only validate the enclave's 
 attestation doc
 
 If you came here to just learn how to verify the enclave's attestation doc then 
 see this [README](./verify/README.md)
 
-### Prerequirements
+### Prerequisites
 
-* setup aws nitro enclave supported VM
-* recommended to go through tutorials first before running...
-    * https://catalog.workshops.aws/nitro-enclaves/en-US/0-getting-started/prerequisites
-    * https://catalog.workshops.aws/nitro-enclaves/en-US/1-my-first-enclave/1-1-nitro-enclaves-cli
-    * https://docs.aws.amazon.com/enclaves/latest/user/verify-root.html
+1. Setup an AWS Nitro Enclave-supported VM.
+1. Strongly recommended: go through the following tutorials before proceeding.
+    1. [Nitro Enclave environment setup](https://catalog.workshops.aws/nitro-enclaves/en-US/0-getting-started/prerequisites)
+    1. [Nitro Enclaves CLI](https://catalog.workshops.aws/nitro-enclaves/en-US/1-my-first-enclave/1-1-nitro-enclaves-cli)
+    1. [Verifying the root of trust](https://docs.aws.amazon.com/enclaves/latest/user/verify-root.html)
 
 ### Create and run an AWS Nitro Enclave
 
-* enclave comes with `lbnsm.so` and python is calling it over C binding
-* the libnsm is rust shared object with python wrapper around it
+* The enclave comes with `libnsm.so` included and Python calls it over C bindings.
+* `libnsm` is a Rust shared object with a Python wrapper around it.
 
-Setup the admin .env file that is going to be sent to the enclave once it starts:
+Setup the admin `.env` file that is going to be sent to the enclave once it starts:
+
 ```shell
 cd admin
 cp .env.template .env # update the .env file with the correct values
@@ -41,7 +65,6 @@ cp .env.template .env # update the .env file with the correct values
 
 Run the enclave:
 ```shell
-
 cd enclave
 ./run_proxies.sh
 ./run_enclave.sh

@@ -1,18 +1,22 @@
 # Attestation Verification
 
-System requirements:
-* aws EC2 instance with Nitro Enclave support (tested on m5.xlarge EC2 instance)
-  * must check Nitro Enclave enabled in the instance creation
-* Amazon Linux (tested on Amazon Linux 2023 AMI 2023.3.20240312.0 x86_64 HVM kernel-6.1)
-* x86_64 architecture CPU
+This directory contains instructions and code for verifying the oracle running inside the TEE.
 
 ### 0. Prerequisites
 
-* Easiest is to use EC2 image with docker and nitro-cli installed
-* If prefer an additional linux distro support need to do additional steps 
-* If Nitro Enclave kernel driver is not included on chosen linux kernel, it needs to be installed manually. See more here: https://github.com/aws/aws-nitro-enclaves-cli/blob/main/docs/ubuntu_20.04_how_to_install_nitro_cli_from_github_sources.md
+System requirements:
+
+* An AWS EC2 instance with Nitro Enclave support (we have tested on `m5.xlarge` EC2 instance).
+    * You must enable the "Nitro Enclave enabled" option when creating the instance
+    * Amazon Linux (tested on `Amazon Linux 2023 AMI 2023.3.20240312.0 x86_64 HVM kernel-6.1`)
+    * x86_64 architecture CPU
+    * It is easiest to use an EC2 image with Docker and `nitro-cli` installed
+    * If you want to support a different linux distro, you need additional configuration
+    * If the Nitro Enclave kernel driver is not included on chosen linux kernel, it needs to be installed manually. See more [here](https://github.com/aws/aws-nitro-enclaves-cli/blob/main/docs/ubuntu_20.04_how_to_install_nitro_cli_from_github_sources.md)
+
 
 For Amazon Linux:
+
 ```shell
 sudo yum update -y
 sudo dnf install aws-nitro-enclaves-cli -y
@@ -37,6 +41,7 @@ nitro-cli build-enclave --docker-uri "ghcr.io/galadriel-ai/aws_enclave:v0.0.2" -
 ```
 
 You need to get exactly the same hashes:
+
 ```shell
 Enclave Image successfully created.
 {
@@ -49,7 +54,7 @@ Enclave Image successfully created.
 }
 ```
 
-### 2. Setup python
+### 2. Setup Python
 
 ```shell
 python3 -m pip install -r requirements.txt
@@ -59,7 +64,7 @@ python3 -m pip install --upgrade pyOpenSSL
 ### 3. Verify attestation
 
 Optionally, you can download the attestation directly from blockchain with
-`python3 get_attestation.py` and verify it is the same as 
+`python3 get_attestation.py` and verify it is the same as
 `attestation_doc_b64.txt` in this repo.
 
 Optionally, you can download the root.pem from Amazon and verify it is the same 
