@@ -10,9 +10,10 @@ import attestation_verifier
 
 ATTESTATION_DOC_B64_PATH = "attestation_doc_b64.txt"
 
+RPC_URL = "https://devnet.galadriel.com"
+web3_client = Web3(Web3.HTTPProvider(RPC_URL))
 
 def _get_oracle_address(tx_hash: str) -> str:
-    web3_client = Web3(Web3.HTTPProvider("https://devnet.galadriel.com"))
     try:
         tx = web3_client.eth.get_transaction(tx_hash)
         return tx.to
@@ -21,7 +22,6 @@ def _get_oracle_address(tx_hash: str) -> str:
 
 
 def _read_onchain_attestation(oracle_address: str) -> Tuple[str, str]:
-    web3_client = Web3(Web3.HTTPProvider("https://devnet.galadriel.com"))
     with open("oracle_abi.json", "r", encoding="utf-8") as f:
         oracle_abi = json.loads(f.read())
 
