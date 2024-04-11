@@ -12,6 +12,7 @@ ACTION_PING = "ping"
 ACTION_GET_ATTESTATION = "get_attestation_doc"
 ACTION_SIGN_MESSAGE = "sign_message"
 ACTION_SEND_SECRETS = "send_secrets"
+ACTION_PS = "ps"
 
 
 def save_attestation_b64(attestation_b64):
@@ -70,6 +71,15 @@ def _action_send_secrets(s):
     print("Send secrets response:", response.decode())
 
 
+def _action_ps(s):
+    s.send(str.encode(json.dumps({
+        "action": ACTION_PS,
+    })))
+    response = s.recv(65536)
+    metrics = response.decode()
+    print("Metrics:", metrics)
+
+
 def _get_cid():
     """
     Determine CID of Current Enclave
@@ -102,6 +112,8 @@ def main(cid: str, action: str, message: str = None, until_success: bool = False
                 _action_sign_message(s, message)
             elif action == ACTION_SEND_SECRETS:
                 _action_send_secrets(s)
+            elif action == ACTION_PS:
+                _action_ps(s)
 
             # close the connection
             s.close()
@@ -129,7 +141,8 @@ if __name__ == '__main__':
             ACTION_PING,
             ACTION_GET_ATTESTATION,
             ACTION_SIGN_MESSAGE,
-            ACTION_SEND_SECRETS
+            ACTION_SEND_SECRETS,
+            ACTION_PS
         ],
         help="action to run"
     )
