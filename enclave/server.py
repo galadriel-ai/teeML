@@ -83,7 +83,6 @@ def main():
             response["ram_available"] = memory_usage.available
             response["ram_used"] = memory_usage.used
             response["disk_total"] = disk_usage.total
-            response["disk_available"] = disk_usage.available
             response["disk_used"] = disk_usage.used
             client_connection.send(str.encode(json.dumps(response)))
         else:
