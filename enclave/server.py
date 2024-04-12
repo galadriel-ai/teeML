@@ -73,7 +73,7 @@ def main():
                     "exception": str(exc)
                 })))
         elif request["action"] == "ps":
-            cpu_usage = psutil.cpu_percent(interval=1, percpu=True)
+            cpu_usage = psutil.cpu_percent(percpu=True)
             memory_usage = psutil.virtual_memory()
             disk_usage = psutil.disk_usage('/')
             response = {}
@@ -83,6 +83,7 @@ def main():
             response["ram_available"] = memory_usage.available
             response["ram_used"] = memory_usage.used
             response["disk_total"] = disk_usage.total
+            response["disk_free"] = disk_usage.free
             response["disk_used"] = disk_usage.used
             client_connection.send(str.encode(json.dumps(response)))
         else:
