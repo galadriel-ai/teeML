@@ -13,9 +13,15 @@ fetch_metrics_failures_count = 0
 
 
 def _action_ps(s):
-    s.send(str.encode(json.dumps({
-        "action": "ps",
-    })))
+    s.send(
+        str.encode(
+            json.dumps(
+                {
+                    "action": "ps",
+                }
+            )
+        )
+    )
     response = s.recv(65536)
     return json.loads(response.decode())
 
@@ -38,6 +44,7 @@ def _get_enclave_metrics() -> Dict:
     except Exception as exc:
         print("Failed to connect, exc:", exc, flush=True)
         return None
+
 
 def _format_metrics(data: dict):
     global fetch_metrics_failures_count
@@ -81,8 +88,9 @@ def _get_cid():
     Determine CID of Current Enclave
     """
     try:
-        proc = subprocess.Popen(["/bin/nitro-cli", "describe-enclaves"],
-                                stdout=subprocess.PIPE)
+        proc = subprocess.Popen(
+            ["/bin/nitro-cli", "describe-enclaves"], stdout=subprocess.PIPE
+        )
         output = json.loads(proc.communicate()[0].decode())
         enclave_cid = output[0]["EnclaveCID"]
         return enclave_cid
@@ -98,4 +106,5 @@ def get_metrics():
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=9101)
