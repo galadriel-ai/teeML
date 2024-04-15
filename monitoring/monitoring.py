@@ -54,32 +54,32 @@ def _format_metrics(data: dict):
     if data:
         enclave_running = 1
         for i in range(data["cpu_count"]):
-            metrics += f"# HELP cpu_usage_core{i} CPU usage percentage for core {i}\n"
-            metrics += f"# TYPE cpu_usage_core{i} gauge\n"
-            metrics += f"cpu_usage_core{i} {data['cpu_usage'][str(i)]}\n"
+            metrics += f"# HELP enclave_cpu_usage_core{i} CPU usage percentage for core {i}\n"
+            metrics += f"# TYPE enclave_cpu_usage_core{i} gauge\n"
+            metrics += f"enclave_cpu_usage_core{i} {data['cpu_usage'][str(i)]}\n"
         # Memory metrics
-        metrics += f"# HELP memory_used Memory used in bytes\n"
-        metrics += f"# TYPE memory_used gauge\n"
-        metrics += f"memory_used {data['ram_used']}\n"
-        metrics += f"# HELP memory_total Total memory in bytes\n"
-        metrics += f"# TYPE memory_total gauge\n"
-        metrics += f"memory_total {data['ram_total']}\n"
+        metrics += f"# HELP enclave_memory_used Memory used in bytes\n"
+        metrics += f"# TYPE enclave_memory_used gauge\n"
+        metrics += f"enclave_memory_used {data['ram_used']}\n"
+        metrics += f"# HELP enclave_memory_total Total memory in bytes\n"
+        metrics += f"# TYPE enclave_memory_total gauge\n"
+        metrics += f"enclave_memory_total {data['ram_total']}\n"
 
         # Disk metrics
-        metrics += f"# HELP disk_used Disk used in bytes\n"
-        metrics += f"# TYPE disk_used gauge\n"
-        metrics += f"disk_used {data['disk_used']}\n"
-        metrics += f"# HELP disk_total Disk total in bytes\n"
-        metrics += f"# TYPE disk_total gauge\n"
-        metrics += f"disk_used {data['disk_total']}\n"
+        metrics += f"# HELP enclave_disk_used Disk used in bytes\n"
+        metrics += f"# TYPE enclave_disk_used gauge\n"
+        metrics += f"enclave_disk_used {data['disk_used']}\n"
+        metrics += f"# HELP enclave_disk_total Disk total in bytes\n"
+        metrics += f"# TYPE enclave_disk_total gauge\n"
+        metrics += f"enclave_disk_total {data['disk_total']}\n"
     else:
         fetch_metrics_failures_count += 1
     metrics += "# HELP enclave_running Whether the Enclave is up and running\n"
     metrics += "# TYPE enclave_running gauge\n"
     metrics += f"enclave_running {enclave_running}\n"
-    metrics += "# HELP fetch_metrics_failures_total Total number of times the metrics fetch has failed\n"
-    metrics += "# TYPE fetch_metrics_failures_total counter\n"
-    metrics += f"fetch_metrics_failures_total {fetch_metrics_failures_count}\n"
+    metrics += "# HELP enclave_fetch_metrics_failures_total Total number of times the metrics fetch has failed\n"
+    metrics += "# TYPE enclave_fetch_metrics_failures_total counter\n"
+    metrics += f"enclave_fetch_metrics_failures_total {fetch_metrics_failures_count}\n"
     return metrics
 
 
