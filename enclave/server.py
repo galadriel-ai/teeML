@@ -77,8 +77,10 @@ def main():
             memory_usage = psutil.virtual_memory()
             disk_usage = psutil.disk_usage('/')
             response = {}
+            response["cpu_count"] = len(cpu_usage)
+            response["cpu_usage"] = {}
             for i, usage in enumerate(cpu_usage):
-                response[f"cpu_{i}"] = usage
+                response[f"cpu_usage"][i] = usage
             response["ram_total"] = memory_usage.total
             response["ram_available"] = memory_usage.available
             response["ram_used"] = memory_usage.used
