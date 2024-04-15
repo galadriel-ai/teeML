@@ -2,6 +2,7 @@ import socket
 import json
 import base64
 
+import psutil 
 from NsmUtil import NSMUtil
 import key_manager
 
@@ -71,6 +72,22 @@ def main():
                 client_connection.send(str.encode(json.dumps({
                     "exception": str(exc)
                 })))
+        elif request["action"] == "ps":
+            cpu_usage = psutil.cpu_percent(percpu=True)
+            memory_usage = psutil.virtual_memory()
+            disk_usage = psutil.disk_usage('/')
+            response = {}
+            response["cpu_count"] = len(cpu_usage)
+            response["cpu_usage"] = {}
+            for i, usage in enumerate(cpu_usage):
+                response[f"cpu_usage"][i] = usage
+            response["ram_total"] = memory_usage.total
+            response["ram_available"] = memory_usage.available
+            response["ram_used"] = memory_usage.used
+            response["disk_total"] = disk_usage.total
+            response["disk_free"] = disk_usage.free
+            response["disk_used"] = disk_usage.used
+            client_connection.send(str.encode(json.dumps(response)))
         else:
             client_connection.send(str.encode(json.dumps({
                 "error": "unknown action: " + request["action"]
