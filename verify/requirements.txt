@@ -2,6 +2,5 @@ cbor2==5.2.0
 cose==0.9.dev2
 cryptography==42.0.4
 pycryptodome==3.19.1
-# Actually need the 24.0.0 but the installation fails and need to upgrade after wards
-pyOpenSSL==19.1.0
+pyOpenSSL==24.0.0
 web3==6.15.1
