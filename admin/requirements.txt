@@ -1,7 +1,6 @@
 cbor2==5.2.0
 cose==0.9.dev2
-cryptography==41.0.4
-pycryptodome==3.9.9
-# Actually need the 24.0.0 but the installation fails and need to upgrade after wards
-pyOpenSSL==19.1.0
+cryptography==42.0.4
+pycryptodome==3.19.1
+pyOpenSSL==24.0.0
 python-dotenv==1.0.1
