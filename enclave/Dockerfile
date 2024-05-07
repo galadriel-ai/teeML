@@ -41,4 +41,4 @@ COPY dnsmasq.conf /etc/dnsmasq.conf
 
 RUN chmod +x run.sh
 
-CMD ["sh", "-c", "dnsmasq --no-daemon & /app/run.sh"]
+CMD ["/app/run.sh"]
