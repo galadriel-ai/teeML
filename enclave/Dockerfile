@@ -4,7 +4,8 @@ FROM amazonlinux:2023.3.20240219.0
 RUN yum update -y
 RUN yum groupinstall "Development Tools" -y
 RUN yum install openssl-devel bzip2-devel libffi-devel wget net-tools git iproute dnsmasq -y
-
+# stop DNS service (just in case)
+RUN systemctl disable systemd-resolved
 
 WORKDIR /tmp
 RUN wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz

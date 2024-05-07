@@ -21,7 +21,8 @@ echo "127.0.0.1   api.groq.com" >> /etc/hosts
 echo "127.0.0.1   galadriel.mypinata.cloud" >> /etc/hosts
 echo "127.0.0.1   api.pinata.cloud" >> /etc/hosts
 
-echo "nameserver 127.0.0.1" >> /etc/resolv.conf
+mkdir -p /run/resolvconf
+echo "nameserver 127.0.0.1" > /run/resolvconf/resolv.conf
 
 # run TLS traffic forwarder
 python3.10 /app/traffic_forwarder.py 127.0.0.1 443 &
