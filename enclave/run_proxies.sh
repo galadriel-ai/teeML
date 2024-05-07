@@ -10,7 +10,7 @@ nohup vsock-proxy 8005 storage.googleapis.com 443 \
   --config vsock/vsock_proxy_google_storage.yaml &> vsock_proxy_google_storage.log &
 nohup vsock-proxy 8006 oauth2.googleapis.com 443 \
   --config vsock/vsock_proxy_google_oauth2.yaml &> vsock_proxy_google_oauth2.log &
-nohup vsock-proxy 8007 api.e2b.dev 8888 \
+nohup vsock-proxy 8007 api.e2b.dev 443 \
   --config vsock/vsock_proxy_e2b.yaml &> vsock_proxy_e2b.log &
 nohup vsock-proxy 8008 api.groq.com 443 \
   --config vsock/vsock_proxy_groq.yaml &> vsock_proxy_groq.log &
