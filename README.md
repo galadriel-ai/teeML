@@ -27,7 +27,7 @@ The oracle currently supports calling the following, all of which is also suppor
 
 * LLMs from OpenAI and Groq
 * Image generation with OpenAI's DALL-E
-* Code execution via Bearly's code interpreter API
+* Code execution via E2B's code interpreter API
 * Web search via Serper API
 
 See details of supported tools in the [oracle reference](https://docs.galadriel.com/reference/overview).

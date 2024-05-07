@@ -12,7 +12,7 @@ REMOTE_PORT_GALADRIEL = 8003
 REMOTE_PORT_WINDOWS = 8004
 REMOTE_PORT_GOOGLE_STORAGE = 8005
 REMOTE_PORT_GOOGLE_OAUTH2 = 8006
-REMOTE_PORT_BEARLY = 8007
+REMOTE_PORT_E2B = 8007
 REMOTE_PORT_GROQ = 8008
 REMOTE_PORT_IPFS = 8009
 REMOTE_PORT_PINATA = 8010
@@ -24,7 +24,7 @@ REMOTE_PORTS = {
     "oaidalleapiprodscus.blob.core.windows.net": REMOTE_PORT_WINDOWS,
     "storage.googleapis.com": REMOTE_PORT_GOOGLE_STORAGE,
     "oauth2.googleapis.com": REMOTE_PORT_GOOGLE_OAUTH2,
-    "exec.bearly.ai": REMOTE_PORT_BEARLY,
+    "e2b.dev": REMOTE_PORT_E2B,
     "api.groq.com": REMOTE_PORT_GROQ,
     "galadriel.mypinata.cloud": REMOTE_PORT_IPFS,
     "api.pinata.cloud": REMOTE_PORT_PINATA,

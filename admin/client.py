@@ -13,6 +13,8 @@ ACTION_GET_ATTESTATION = "get_attestation_doc"
 ACTION_SIGN_MESSAGE = "sign_message"
 ACTION_SEND_SECRETS = "send_secrets"
 ACTION_PS = "ps"
+ACTION_CHECK_OPENAI_PROXY = "check_openai_proxy"
+ACTION_CHECK_E2B_PROXY = "check_e2b_proxy"
 
 
 def save_attestation_b64(attestation_b64):
@@ -23,6 +25,15 @@ def save_attestation_b64(attestation_b64):
 def _action_ping(s):
     s.send(str.encode(json.dumps({
         "action": ACTION_PING
+    })))
+    response = s.recv(65536)
+    response_decoded = response.decode()
+    print("response_decoded:", response_decoded)
+
+
+def _action_check_openai_proxy(s):
+    s.send(str.encode(json.dumps({
+        "action": ACTION_CHECK_OPENAI_PROXY
     })))
     response = s.recv(65536)
     response_decoded = response.decode()
@@ -114,6 +125,8 @@ def main(cid: str, action: str, message: str = None, until_success: bool = False
                 _action_send_secrets(s)
             elif action == ACTION_PS:
                 _action_ps(s)
+            elif action == ACTION_CHECK_OPENAI_PROXY:
+                _action_check_openai_proxy(s)
 
             # close the connection
             s.close()
@@ -142,7 +155,8 @@ if __name__ == '__main__':
             ACTION_GET_ATTESTATION,
             ACTION_SIGN_MESSAGE,
             ACTION_SEND_SECRETS,
-            ACTION_PS
+            ACTION_PS,
+            ACTION_CHECK_OPENAI_PROXY,
         ],
         help="action to run"
     )

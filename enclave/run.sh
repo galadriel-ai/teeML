@@ -5,6 +5,10 @@ ip addr add 127.0.0.1/32 dev lo
 
 ip link set dev lo up
 
+# Starting DNSMasq
+echo "Starting DNSMasq..."
+dnsmasq --no-daemon &
+
 # Add a hosts record, pointing target site calls to local loopback
 echo "127.0.0.1   api.openai.com" >> /etc/hosts
 echo "127.0.0.1   google.serper.dev" >> /etc/hosts
@@ -17,6 +21,9 @@ echo "127.0.0.1   api.groq.com" >> /etc/hosts
 echo "127.0.0.1   galadriel.mypinata.cloud" >> /etc/hosts
 echo "127.0.0.1   api.pinata.cloud" >> /etc/hosts
 
+echo "nameserver 127.0.0.1" >> /etc/resolv.conf
+
+# run TLS traffic forwarder
 python3.10 /app/traffic_forwarder.py 127.0.0.1 443 &
 
 # sleep so there is time to open enclave debug logs before the server potentially crashes

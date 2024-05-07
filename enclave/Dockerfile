@@ -3,7 +3,7 @@ FROM amazonlinux:2023.3.20240219.0
 # Install python for running the server and net-tools for modifying network config
 RUN yum update -y
 RUN yum groupinstall "Development Tools" -y
-RUN yum install openssl-devel bzip2-devel libffi-devel wget net-tools git iproute -y
+RUN yum install openssl-devel bzip2-devel libffi-devel wget net-tools git iproute dnsmasq -y
 
 
 WORKDIR /tmp
@@ -37,6 +37,8 @@ COPY oracles/oracles ./oracles
 COPY proxy_checks ./proxy_checks/
 COPY check_proxies.py ./
 
+COPY dnsmasq.conf /etc/dnsmasq.conf
+
 RUN chmod +x run.sh
 
-CMD ["/app/run.sh"]
+CMD ["sh", "-c", "dnsmasq --no-daemon & /app/run.sh"]

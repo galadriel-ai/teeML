@@ -1,4 +1,4 @@
-async def execute() -> (bool, str):
+def execute() -> (bool, str):
     try:
         import settings
         import requests

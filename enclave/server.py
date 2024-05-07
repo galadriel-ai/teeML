@@ -5,6 +5,7 @@ import base64
 import psutil 
 from NsmUtil import NSMUtil
 import key_manager
+from proxy_checks import openai_call
 
 
 def main():
@@ -38,6 +39,13 @@ def main():
         if request["action"] == "ping":
             response = json.dumps({
                 "ping": "pong"
+            })
+            client_connection.send(str.encode(response))
+        elif request["action"] == "check_openai_proxy":
+            openai_is_success, openai_error = openai_call.execute()
+            response = json.dumps({
+                "success": openai_is_success,
+                "error": openai_error
             })
             client_connection.send(str.encode(response))
         elif request["action"] == "get_attestation_doc":
