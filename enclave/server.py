@@ -80,6 +80,20 @@ def main():
                 client_connection.send(str.encode(json.dumps({
                     "exception": str(exc)
                 })))
+        elif request["action"] == "dns":
+            hostname = request["hostname"]
+            try:
+                ip_address = socket.gethostbyname(hostname)
+                request = json.dumps({
+                    "ip_address": ip_address,
+                    "error": ""
+                })
+            except socket.error as e:
+                request = json.dumps({
+                    "ip_address": "",
+                    "error": str(e)
+                })
+            client_connection.send(str.encode(request))
         elif request["action"] == "ps":
             cpu_usage = psutil.cpu_percent(percpu=True)
             memory_usage = psutil.virtual_memory()
