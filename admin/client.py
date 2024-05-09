@@ -13,6 +13,8 @@ ACTION_GET_ATTESTATION = "get_attestation_doc"
 ACTION_SIGN_MESSAGE = "sign_message"
 ACTION_SEND_SECRETS = "send_secrets"
 ACTION_PS = "ps"
+ACTION_CHECK_OPENAI_PROXY = "check_openai_proxy"
+ACTION_DNS = "dns"
 
 
 def save_attestation_b64(attestation_b64):
@@ -23,6 +25,15 @@ def save_attestation_b64(attestation_b64):
 def _action_ping(s):
     s.send(str.encode(json.dumps({
         "action": ACTION_PING
+    })))
+    response = s.recv(65536)
+    response_decoded = response.decode()
+    print("response_decoded:", response_decoded)
+
+
+def _action_check_openai_proxy(s):
+    s.send(str.encode(json.dumps({
+        "action": ACTION_CHECK_OPENAI_PROXY
     })))
     response = s.recv(65536)
     response_decoded = response.decode()
@@ -52,6 +63,17 @@ def _action_sign_message(s, message):
     response = s.recv(65536)
     signature_b64 = response.decode()
     print("signature_b64:", signature_b64)
+
+
+def _action_dns(s, hostname):
+    s.send(str.encode(json.dumps({
+        "action": ACTION_DNS,
+        "hostname": hostname
+    })))
+    # receive the plaintext from the server and print it to console
+    response = s.recv(65536)
+    response_decoded = response.decode()
+    print("response_decoded:", response_decoded)
 
 
 def get_gcp_creds():
@@ -91,7 +113,7 @@ def _get_cid():
     return enclave_cid
 
 
-def main(cid: str, action: str, message: str = None, until_success: bool = False):
+def main(cid: str, action: str, message: str = None, hostname: str = None, until_success: bool = False):
     while True:
         try:
             if not cid:
@@ -114,6 +136,10 @@ def main(cid: str, action: str, message: str = None, until_success: bool = False
                 _action_send_secrets(s)
             elif action == ACTION_PS:
                 _action_ps(s)
+            elif action == ACTION_CHECK_OPENAI_PROXY:
+                _action_check_openai_proxy(s)
+            elif action == ACTION_DNS:
+                _action_dns(s, hostname)
 
             # close the connection
             s.close()
@@ -142,7 +168,9 @@ if __name__ == '__main__':
             ACTION_GET_ATTESTATION,
             ACTION_SIGN_MESSAGE,
             ACTION_SEND_SECRETS,
-            ACTION_PS
+            ACTION_PS,
+            ACTION_CHECK_OPENAI_PROXY,
+            ACTION_DNS,
         ],
         help="action to run"
     )
@@ -152,6 +180,11 @@ if __name__ == '__main__':
         help="message to sign in the enclave"
     )
     parser.add_argument(
+        "--hostname",
+        type=str,
+        help="hostname to resolve in the enclave"
+    )
+    parser.add_argument(
         "--until_success",
         type=bool,
         help="retries until success",
@@ -159,4 +192,4 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
-    main(args.cid, args.action, args.message, args.until_success)
+    main(args.cid, args.action, args.message, args.hostname, args.until_success)

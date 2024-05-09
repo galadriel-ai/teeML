@@ -3,8 +3,9 @@ FROM amazonlinux:2023.3.20240219.0
 # Install python for running the server and net-tools for modifying network config
 RUN yum update -y
 RUN yum groupinstall "Development Tools" -y
-RUN yum install openssl-devel bzip2-devel libffi-devel wget net-tools git iproute -y
-
+RUN yum install openssl-devel bzip2-devel libffi-devel wget net-tools git iproute dnsmasq -y
+# stop DNS service (just in case)
+RUN systemctl disable systemd-resolved
 
 WORKDIR /tmp
 RUN wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz
@@ -36,6 +37,8 @@ COPY oracles/oracles ./oracles
 # TODO: debug only
 COPY proxy_checks ./proxy_checks/
 COPY check_proxies.py ./
+
+COPY dnsmasq.conf /etc/dnsmasq.conf
 
 RUN chmod +x run.sh
 

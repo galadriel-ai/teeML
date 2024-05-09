@@ -16,7 +16,7 @@ ORACLE_ADDRESS = os.getenv("ORACLE_ADDRESS", "")
 ORACLE_ABI_PATH = os.getenv("ORACLE_ABI_PATH", "")
 
 GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME", "galadriel-assets")
-BEARLY_API_KEY = os.getenv("BEARLY_API_KEY", "")
+E2B_API_KEY = os.getenv("E2B_API_KEY", "")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 
 PINATA_API_JWT = os.getenv("PINATA_API_JWT", "")
@@ -33,7 +33,7 @@ def get_dot_env() -> Dict:
         "ORACLE_ADDRESS": ORACLE_ADDRESS,
         "ORACLE_ABI_PATH": "/app/oracles/abi/ChatOracle.json",
         "GCS_BUCKET_NAME": GCS_BUCKET_NAME,
-        "BEARLY_API_KEY": BEARLY_API_KEY,
+        "E2B_API_KEY": E2B_API_KEY,
         "GROQ_API_KEY": GROQ_API_KEY,
         "PINATA_API_JWT": PINATA_API_JWT,
         "PINATA_GATEWAY_TOKEN": PINATA_GATEWAY_TOKEN,

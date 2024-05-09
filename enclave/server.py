@@ -5,6 +5,7 @@ import base64
 import psutil 
 from NsmUtil import NSMUtil
 import key_manager
+from proxy_checks import openai_call
 
 
 def main():
@@ -40,6 +41,13 @@ def main():
                 "ping": "pong"
             })
             client_connection.send(str.encode(response))
+        elif request["action"] == "check_openai_proxy":
+            openai_is_success, openai_error = openai_call.execute()
+            response = json.dumps({
+                "success": openai_is_success,
+                "error": openai_error
+            })
+            client_connection.send(str.encode(response))
         elif request["action"] == "get_attestation_doc":
             # Generate attestation document
             attestation_doc = nsm_util.get_attestation_doc()
@@ -72,6 +80,20 @@ def main():
                 client_connection.send(str.encode(json.dumps({
                     "exception": str(exc)
                 })))
+        elif request["action"] == "dns":
+            hostname = request["hostname"]
+            try:
+                ip_address = socket.gethostbyname(hostname)
+                request = json.dumps({
+                    "ip_address": ip_address,
+                    "error": ""
+                })
+            except socket.error as e:
+                request = json.dumps({
+                    "ip_address": "",
+                    "error": str(e)
+                })
+            client_connection.send(str.encode(request))
         elif request["action"] == "ps":
             cpu_usage = psutil.cpu_percent(percpu=True)
             memory_usage = psutil.virtual_memory()

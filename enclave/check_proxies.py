@@ -7,7 +7,7 @@ from proxy_checks import openai_call
 
 async def main():
     print("\n=== OPENAI call start ===")
-    openai_is_success, openai_error = await openai_call.execute()
+    openai_is_success, openai_error = openai_call.execute()
     print("=== OPENAI Call done ===")
     print("\n=== GoogleSerper call start ===")
     serper_is_success, serper_error = await google_serper_call.execute()
