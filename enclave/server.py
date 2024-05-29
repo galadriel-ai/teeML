@@ -109,6 +109,7 @@ def main():
             response["disk_total"] = disk_usage.total
             response["disk_free"] = disk_usage.free
             response["disk_used"] = disk_usage.used
+            response["oracle_metrics"] = _read_metrics()
             client_connection.send(str.encode(json.dumps(response)))
         else:
             client_connection.send(str.encode(json.dumps({
@@ -119,5 +120,13 @@ def main():
         client_connection.close()
 
 
-if __name__ == '__main__':
+def _read_metrics() -> dict:
+    try:
+        with open("/app/oracles/metrics.json", "r") as f:
+            return json.load(f)
+    except:
+        return {}
+
+
+if __name__ == "__main__":
     main()
