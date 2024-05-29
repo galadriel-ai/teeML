@@ -72,6 +72,12 @@ def _format_metrics(data: dict):
         metrics += f"# HELP enclave_disk_total Disk total in bytes\n"
         metrics += f"# TYPE enclave_disk_total gauge\n"
         metrics += f"enclave_disk_total {data['disk_total']}\n"
+
+        if "oracle_metrics" in data:
+            for key, value in data["oracle_metrics"].items():
+                metrics += f"# HELP {key} {key}\n"
+                metrics += f"# TYPE {key} counter\n"
+                metrics += f"{key} {value}\n"
     else:
         fetch_metrics_failures_count += 1
     metrics += "# HELP enclave_running Whether the Enclave is up and running\n"
