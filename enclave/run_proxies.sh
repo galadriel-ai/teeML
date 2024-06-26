@@ -18,3 +18,5 @@ nohup vsock-proxy 8009 galadriel.mypinata.cloud 443 \
   --config vsock/vsock_proxy_ipfs.yaml -w 20 &> vsock_proxy_ipfs.log &
 nohup vsock-proxy 8010 api.pinata.cloud 443 \
   --config vsock/vsock_proxy_pinata.yaml -w 20 &> vsock_proxy_pinata.log &
+nohup vsock-proxy 8011 api.anthropic.com 443 \
+  --config vsock/vsock_proxy_anthropic.yaml -w 20 &> vsock_proxy_anthropic.log &
