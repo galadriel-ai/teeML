@@ -16,6 +16,7 @@ REMOTE_PORT_E2B = 8007
 REMOTE_PORT_GROQ = 8008
 REMOTE_PORT_IPFS = 8009
 REMOTE_PORT_PINATA = 8010
+REMOTE_PORT_ANTHROPIC = 8011
 
 REMOTE_PORTS = {
     "api.openai.com": REMOTE_PORT_OPENAI,
@@ -28,6 +29,7 @@ REMOTE_PORTS = {
     "api.groq.com": REMOTE_PORT_GROQ,
     "galadriel.mypinata.cloud": REMOTE_PORT_IPFS,
     "api.pinata.cloud": REMOTE_PORT_PINATA,
+    "api.anthropic.com": REMOTE_PORT_ANTHROPIC,
 }
 
 

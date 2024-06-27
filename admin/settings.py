@@ -22,6 +22,7 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 PINATA_API_JWT = os.getenv("PINATA_API_JWT", "")
 PINATA_GATEWAY_TOKEN = os.getenv("PINATA_GATEWAY_TOKEN", "")
 
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 
 def get_dot_env() -> Dict:
     return {
@@ -37,4 +38,5 @@ def get_dot_env() -> Dict:
         "GROQ_API_KEY": GROQ_API_KEY,
         "PINATA_API_JWT": PINATA_API_JWT,
         "PINATA_GATEWAY_TOKEN": PINATA_GATEWAY_TOKEN,
+        "ANTHROPIC_API_KEY": ANTHROPIC_API_KEY,
     }

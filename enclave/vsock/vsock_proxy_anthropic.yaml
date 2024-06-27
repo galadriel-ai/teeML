@@ -1,0 +1,2 @@
+allowlist:
+  - { address: api.anthropic.com, port: 443 }

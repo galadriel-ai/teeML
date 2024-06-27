@@ -20,6 +20,7 @@ echo "127.0.0.1   exec.bearly.ai" >> /etc/hosts
 echo "127.0.0.1   api.groq.com" >> /etc/hosts
 echo "127.0.0.1   galadriel.mypinata.cloud" >> /etc/hosts
 echo "127.0.0.1   api.pinata.cloud" >> /etc/hosts
+echo "127.0.0.1   api.anthropic.com" >> /etc/hosts
 
 mkdir -p /run/resolvconf
 echo "nameserver 127.0.0.1" > /run/resolvconf/resolv.conf
