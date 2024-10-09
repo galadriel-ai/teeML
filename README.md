@@ -1,3 +1,5 @@
+### ⚠️ NB! This project is deprecated as of 09.10.24 ⚠️
+
 <p align="center">
     <a href="https://galadriel.com" style="max-width: 100px;" target="_blank">
         <img src="Galadriel.svg">
